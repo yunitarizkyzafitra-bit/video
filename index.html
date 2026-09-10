@@ -32,78 +32,78 @@
       background-size: cover;
       background-repeat: no-repeat;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      padding-bottom: 75px;
+      justify-content: center;
+      align-items: center; /* Tepat di tengah panggung */
     }
 
-    /* Card Digital Peserta (Diperbesar) */
+    /* Kartu Nama Digital (Menutupi Khusus Area Tengah Panggung) */
     .display-card {
       position: relative;
-      z-index: 2;
-      width: 90%;
-      max-width: 920px; /* Ukuran diperbesar */
-      padding: 25px 35px;
+      z-index: 10;
+      width: 68vw; /* Presisi menutupi area tengah, tidak menyentuh pilar emas */
+      max-width: 950px;
+      min-height: 480px;
+      padding: 35px 45px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      justify-content: center;
+      gap: 20px;
       
-      /* Styling Mewah Glassmorphism */
-      background: rgba(8, 22, 16, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 2px solid #d4af37;
-      border-radius: 24px;
+      /* Glassmorphism Pekat agar Teks Panggung Belakang Tertutup Total */
+      background: rgba(5, 18, 12, 0.94); 
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 3px solid #d4af37;
+      border-radius: 28px;
       
-      /* Efek Bayangan & Glow Emas */
+      /* Glow Emas & Bayangan Mewah */
       box-shadow: 
-        0 20px 45px rgba(0, 0, 0, 0.7),
-        0 0 30px rgba(212, 175, 55, 0.35),
-        inset 0 0 20px rgba(212, 175, 55, 0.15);
+        0 20px 50px rgba(0, 0, 0, 0.85),
+        0 0 35px rgba(212, 175, 55, 0.4),
+        inset 0 0 20px rgba(212, 175, 55, 0.2);
 
-      /* Animasi Transisi */
+      /* Animasi Masuk */
       animation: fadeInSlide 0.8s ease-out forwards;
     }
 
-    /* Header Tulisan Tasyakuran Dirosa dengan Efek Kaca (Glassmorphism) */
+    /* Header Tulisan Tasyakuran Dirosa */
     .glass-header {
       align-self: center;
-      padding: 8px 30px;
+      padding: 10px 40px;
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 175, 55, 0.5);
-      border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      border: 1.5px solid rgba(212, 175, 55, 0.6);
+      border-radius: 35px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.15);
       margin-bottom: 5px;
     }
 
     .glass-header h2 {
       font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      letter-spacing: 4px;
+      font-size: 1.35rem;
+      letter-spacing: 5px;
       color: #f3e5ab;
       text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* Konten Utama Kartu */
+    /* Konten Utama Kartu Nama */
     .card-body {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 35px;
     }
 
-    /* Bingkai Foto Peserta (Diperbesar) */
+    /* Bingkai Foto Peserta */
     .photo-container {
       flex-shrink: 0;
-      width: 140px;
-      height: 175px;
-      border-radius: 16px;
-      border: 2px solid #d4af37;
+      width: 170px;
+      height: 220px;
+      border-radius: 18px;
+      border: 3px solid #d4af37;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       background: #0d231a;
     }
 
@@ -113,83 +113,84 @@
       object-fit: cover;
     }
 
-    /* Informasi Teks */
+    /* Informasi Teks Peserta */
     .info-container {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       text-align: left;
     }
 
-    /* 1. Nama Liqo */
     .info-box .label {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: #d4af37;
       font-weight: 600;
+      margin-bottom: 2px;
     }
 
+    /* 1. Nama Liqo */
     .info-box .value-liqo {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 600;
       color: #e0e0e0;
     }
 
     /* 2. Nama Mudarissah */
     .info-box .value-mudarissah {
-      font-size: 1.15rem;
+      font-size: 1.3rem;
       font-weight: 600;
       color: #f3e5ab;
     }
 
-    /* 3. Nama Peserta (Utama) */
+    /* 3. Nama Peserta */
     .info-box .value-peserta {
       font-family: 'Cinzel', serif;
-      font-size: 2.3rem;
-      font-weight: 700;
+      font-size: 2.6rem;
+      font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4);
-      line-height: 1.2;
-      margin-top: 2px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 18px rgba(255, 215, 0, 0.4);
+      line-height: 1.15;
+      margin-top: 3px;
     }
 
     /* Tombol Navigasi Kontrol */
     .controls-container {
       position: absolute;
-      bottom: 20px;
-      z-index: 2;
+      bottom: 25px;
+      z-index: 10;
       display: flex;
-      gap: 12px;
+      gap: 15px;
     }
 
     .btn-control {
-      background: rgba(15, 35, 25, 0.85);
+      background: rgba(12, 30, 22, 0.9);
       border: 1.5px solid #d4af37;
       color: #fff;
-      padding: 8px 22px;
-      font-size: 0.85rem;
+      padding: 10px 28px;
+      font-size: 0.9rem;
       font-weight: 600;
-      border-radius: 25px;
+      border-radius: 30px;
       cursor: pointer;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
     .btn-control:hover {
       background: #d4af37;
       color: #0d231a;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
       transform: translateY(-2px);
     }
 
-    /* Keyframes Animasi Pemanggilan */
+    /* Keyframes Animasi */
     @keyframes fadeInSlide {
       from {
         opacity: 0;
-        transform: translateY(20px) scale(0.97);
+        transform: translateY(20px) scale(0.96);
       }
       to {
         opacity: 1;
@@ -202,19 +203,19 @@
 
   <div class="stage-container">
 
-    <!-- Card Pemanggilan Digital (Lebih Besar) -->
+    <!-- Card Pemanggilan Digital (Presisi Area Tengah Panggung) -->
     <div class="display-card" id="participantCard">
       
-      <!-- Header Efek Kaca / Glassmorphism -->
+      <!-- Header Efek Kaca Glassmorphism -->
       <div class="glass-header">
         <h2>Tasyakuran Dirosa</h2>
       </div>
 
-      <!-- Konten Utama Kartu -->
+      <!-- Konten Utama Kartu Nama -->
       <div class="card-body">
         <!-- Bingkai Foto Peserta -->
         <div class="photo-container">
-          <img id="photoDisplay" src="https://via.placeholder.com/150x200" alt="Foto Peserta">
+          <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto Peserta">
         </div>
 
         <!-- Informasi Detail Teks -->
@@ -253,25 +254,25 @@
   </div>
 
   <script>
-    // Data Peserta Terintegrasi (Liqo, Mudarissah, Nama Peserta, Foto)
+    // Data Peserta (Liqo, Mudarissah, Nama Peserta, Foto)
     const participants = [
       { 
         liqo: "Liqo Khadijah - Palu Selatan",
         mudarissah: "Ustadzah Nurhaliza, S.Pd.I.",
         peserta: "Fulanah Binti Fulan", 
-        photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300" 
+        photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" 
       },
       { 
         liqo: "Liqo Aisyah - Palu Barat",
         mudarissah: "Ustadzah Rahmawati, M.Ag.",
         peserta: "Aisyah Az-Zahra", 
-        photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300" 
+        photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" 
       },
       { 
         liqo: "Liqo Sumayyah - Mantikulore",
         mudarissah: "Ustadzah Fatimah, S.H.",
         peserta: "Khadijah Al-Kubra", 
-        photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300" 
+        photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" 
       }
     ];
 
