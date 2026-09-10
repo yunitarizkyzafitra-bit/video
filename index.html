@@ -24,7 +24,42 @@
     }
 
     /* ----------------------------------
-       1. LAYAR VIDEO PEMBUKA (INTRO)
+       1. LAYAR START (IZIN AUTOPLAY BROWSER)
+    ---------------------------------- */
+    .start-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2000;
+      background: #041B12;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn-start-app {
+      background: linear-gradient(135deg, #d4af37, #aa7c11);
+      border: 2px solid #fff;
+      color: #041B12;
+      padding: 16px 40px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-start-app:hover {
+      transform: scale(1.08);
+    }
+
+    /* ----------------------------------
+       2. LAYAR VIDEO INTRO
     ---------------------------------- */
     .intro-overlay {
       position: fixed;
@@ -32,12 +67,20 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 999;
+      z-index: 1000;
       background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
+      opacity: 1;
+      visibility: visible;
       transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .intro-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .intro-video {
@@ -46,12 +89,11 @@
       object-fit: cover;
     }
 
-    /* Tombol Lewati / Mulai Acara */
     .btn-skip {
       position: absolute;
       bottom: 30px;
       right: 30px;
-      z-index: 1000;
+      z-index: 1010;
       background: rgba(12, 30, 22, 0.85);
       border: 2px solid #d4af37;
       color: #fff;
@@ -62,23 +104,10 @@
       cursor: pointer;
       backdrop-filter: blur(8px);
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-      transition: all 0.3s ease;
-    }
-
-    .btn-skip:hover {
-      background: #d4af37;
-      color: #0d231a;
-      transform: scale(1.05);
-    }
-
-    /* Class ketika video intro selesai */
-    .intro-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
     }
 
     /* ----------------------------------
-       2. PANGGUNG UTAMA & KARTU NAMA
+       3. PANGGUNG UTAMA & KARTU NAMA
     ---------------------------------- */
     .stage-container {
       position: relative;
@@ -122,7 +151,6 @@
       backdrop-filter: blur(10px);
       border: 1.5px solid rgba(212, 175, 55, 0.6);
       border-radius: 35px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       margin-bottom: 5px;
     }
 
@@ -132,7 +160,6 @@
       letter-spacing: 5px;
       color: #f3e5ab;
       text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .card-body {
@@ -148,7 +175,6 @@
       border-radius: 18px;
       border: 3px solid #d4af37;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       background: #0d231a;
     }
 
@@ -172,7 +198,6 @@
       letter-spacing: 2px;
       color: #d4af37;
       font-weight: 600;
-      margin-bottom: 2px;
     }
 
     .info-box .value-liqo {
@@ -192,9 +217,7 @@
       font-size: 2.6rem;
       font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 18px rgba(255, 215, 0, 0.4);
       line-height: 1.15;
-      margin-top: 3px;
     }
 
     .controls-container {
@@ -214,16 +237,6 @@
       font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .btn-control:hover {
-      background: #d4af37;
-      color: #0d231a;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
-      transform: translateY(-2px);
     }
 
     @keyframes fadeInSlide {
@@ -240,24 +253,24 @@
 </head>
 <body>
 
-  <!-- ==============================================
-       1. OVERLAY VIDEO PEMBUKA
-  =============================================== -->
-  <div class="intro-overlay" id="introOverlay">
-    <!-- Ganti 'intro.mp4' dengan nama/path file video pembukamu -->
-    <video class="intro-video" id="introVideo" autoplay muted playsinline>
-      <source src="./intro.mp4" type="video/mp4">
-      Browser kamu tidak mendukung pemutaran video.
-    </video>
-    
-    <button class="btn-skip" onclick="finishIntro()">Mulai Acara / Lewati ›</button>
+  <!-- 1. SCREEN AWAL PEMANASAN AUTOPLAY -->
+  <div class="start-screen" id="startScreen">
+    <h1 style="color: #f3e5ab; font-family: 'Cinzel', serif;">TASYAKURAN DIROSA IX</h1>
+    <button class="btn-start-app" onclick="startEvent()">🎬 MULAI ACARA</button>
   </div>
 
-  <!-- ==============================================
-       2. TAMPILAN PANGGUNG UTAMA
-  =============================================== -->
-  <div class="stage-container">
+  <!-- 2. OVERLAY VIDEO INTRO PEMBUKA -->
+  <div class="intro-overlay" id="introOverlay">
+    <video class="intro-video" id="introVideo" playsinline preload="auto">
+      <!-- Pastikan file video bernama video_1.mp4 di folder yang sama -->
+      <source src="./video_1.mp4" type="video/mp4">
+      Browser tidak mendukung format video ini.
+    </video>
+    <button class="btn-skip" onclick="finishIntro()">Lewati Video ›</button>
+  </div>
 
+  <!-- 3. PANGGUNG APLIKASI -->
+  <div class="stage-container">
     <div class="display-card" id="participantCard">
       <div class="glass-header">
         <h2>Tasyakuran Dirosa</h2>
@@ -287,20 +300,28 @@
       </div>
     </div>
 
-    <!-- Tombol Navigasi Kontrol -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Prev</button>
-      <button class="btn-control" onclick="replayIntro()">🎥 Ulang Intro</button>
+      <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Intro</button>
       <button class="btn-control" onclick="nextParticipant()">Next ›</button>
     </div>
-
   </div>
 
   <script>
+    const startScreen = document.getElementById('startScreen');
     const introOverlay = document.getElementById('introOverlay');
     const introVideo = document.getElementById('introVideo');
 
-    // Otomatis tutup intro saat video selesai diputar (durasi ~20 detik)
+    // 1. Fungsi Klik Mulai Acara oleh Operator
+    function startEvent() {
+      startScreen.style.display = 'none';
+      introVideo.currentTime = 0;
+      introVideo.play().catch(function(error) {
+        console.log("Autoplay video gagal:", error);
+      });
+    }
+
+    // 2. Video Selesai Otomatis -> Tutup Intro
     introVideo.addEventListener('ended', function() {
       finishIntro();
     });
@@ -316,7 +337,7 @@
       introVideo.play();
     }
 
-    // Data Peserta Contoh
+    // Data Contoh Peserta
     const participants = [
       { 
         liqo: "AL-ALAQ 9.PB4",
