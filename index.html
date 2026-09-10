@@ -20,9 +20,66 @@
       height: 100%;
       overflow: hidden;
       font-family: 'Montserrat', sans-serif;
+      background-color: #000;
     }
 
-    /* Background Panggung Utama */
+    /* ----------------------------------
+       1. LAYAR VIDEO PEMBUKA (INTRO)
+    ---------------------------------- */
+    .intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Tombol Lewati / Mulai Acara */
+    .btn-skip {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      background: rgba(12, 30, 22, 0.85);
+      border: 2px solid #d4af37;
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .btn-skip:hover {
+      background: #d4af37;
+      color: #0d231a;
+      transform: scale(1.05);
+    }
+
+    /* Class ketika video intro selesai */
+    .intro-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* ----------------------------------
+       2. PANGGUNG UTAMA & KARTU NAMA
+    ---------------------------------- */
     .stage-container {
       position: relative;
       width: 100vw;
@@ -33,14 +90,13 @@
       background-repeat: no-repeat;
       display: flex;
       justify-content: center;
-      align-items: center; /* Tepat di tengah panggung */
+      align-items: center;
     }
 
-    /* Kartu Nama Digital (Menutupi Khusus Area Tengah Panggung) */
     .display-card {
       position: relative;
       z-index: 10;
-      width: 68vw; /* Presisi menutupi area tengah, tidak menyentuh pilar emas */
+      width: 68vw;
       max-width: 950px;
       min-height: 480px;
       padding: 35px 45px;
@@ -48,34 +104,25 @@
       flex-direction: column;
       justify-content: center;
       gap: 20px;
-      
-      /* Glassmorphism Pekat agar Teks Panggung Belakang Tertutup Total */
       background: rgba(5, 18, 12, 0.94); 
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 3px solid #d4af37;
       border-radius: 28px;
-      
-      /* Glow Emas & Bayangan Mewah */
       box-shadow: 
         0 20px 50px rgba(0, 0, 0, 0.85),
         0 0 35px rgba(212, 175, 55, 0.4),
         inset 0 0 20px rgba(212, 175, 55, 0.2);
-
-      /* Animasi Masuk */
-      animation: fadeInSlide 0.8s ease-out forwards;
     }
 
-    /* Header Tulisan Tasyakuran Dirosa */
     .glass-header {
       align-self: center;
       padding: 10px 40px;
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border: 1.5px solid rgba(212, 175, 55, 0.6);
       border-radius: 35px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       margin-bottom: 5px;
     }
 
@@ -88,14 +135,12 @@
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    /* Konten Utama Kartu Nama */
     .card-body {
       display: flex;
       align-items: center;
       gap: 35px;
     }
 
-    /* Bingkai Foto Peserta */
     .photo-container {
       flex-shrink: 0;
       width: 170px;
@@ -113,7 +158,6 @@
       object-fit: cover;
     }
 
-    /* Informasi Teks Peserta */
     .info-container {
       flex-grow: 1;
       display: flex;
@@ -131,21 +175,18 @@
       margin-bottom: 2px;
     }
 
-    /* 1. Nama Liqo */
     .info-box .value-liqo {
       font-size: 1.25rem;
       font-weight: 600;
       color: #e0e0e0;
     }
 
-    /* 2. Nama Mudarissah */
     .info-box .value-mudarissah {
       font-size: 1.3rem;
       font-weight: 600;
       color: #f3e5ab;
     }
 
-    /* 3. Nama Peserta */
     .info-box .value-peserta {
       font-family: 'Cinzel', serif;
       font-size: 2.6rem;
@@ -156,7 +197,6 @@
       margin-top: 3px;
     }
 
-    /* Tombol Navigasi Kontrol */
     .controls-container {
       position: absolute;
       bottom: 25px;
@@ -186,7 +226,6 @@
       transform: translateY(-2px);
     }
 
-    /* Keyframes Animasi */
     @keyframes fadeInSlide {
       from {
         opacity: 0;
@@ -201,78 +240,95 @@
 </head>
 <body>
 
+  <!-- ==============================================
+       1. OVERLAY VIDEO PEMBUKA
+  =============================================== -->
+  <div class="intro-overlay" id="introOverlay">
+    <!-- Ganti 'intro.mp4' dengan nama/path file video pembukamu -->
+    <video class="intro-video" id="introVideo" autoplay muted playsinline>
+      <source src="./intro.mp4" type="video/mp4">
+      Browser kamu tidak mendukung pemutaran video.
+    </video>
+    
+    <button class="btn-skip" onclick="finishIntro()">Mulai Acara / Lewati ›</button>
+  </div>
+
+  <!-- ==============================================
+       2. TAMPILAN PANGGUNG UTAMA
+  =============================================== -->
   <div class="stage-container">
 
-    <!-- Card Pemanggilan Digital (Presisi Area Tengah Panggung) -->
     <div class="display-card" id="participantCard">
-      
-      <!-- Header Efek Kaca Glassmorphism -->
       <div class="glass-header">
         <h2>Tasyakuran Dirosa</h2>
       </div>
 
-      <!-- Konten Utama Kartu Nama -->
       <div class="card-body">
-        <!-- Bingkai Foto Peserta -->
         <div class="photo-container">
           <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto Peserta">
         </div>
 
-        <!-- Informasi Detail Teks -->
         <div class="info-container">
-          
-          <!-- Nama Liqo -->
           <div class="info-box">
             <div class="label">Kelompok / Liqo</div>
-            <div class="value-liqo" id="liqoDisplay">Liqo Khadijah - Palu Selatan</div>
+            <div class="value-liqo" id="liqoDisplay">-</div>
           </div>
 
-          <!-- Nama Mudarissah -->
           <div class="info-box">
             <div class="label">Mudarissah</div>
-            <div class="value-mudarissah" id="mudarissahDisplay">Ustadzah Nurhaliza, S.Pd.I.</div>
+            <div class="value-mudarissah" id="mudarissahDisplay">-</div>
           </div>
 
-          <!-- Nama Peserta -->
           <div class="info-box">
             <div class="label">Nama Peserta</div>
-            <div class="value-peserta" id="pesertaDisplay">Fulanah Binti Fulan</div>
+            <div class="value-peserta" id="pesertaDisplay">Menunggu Pemanggilan...</div>
           </div>
-
         </div>
       </div>
-
     </div>
 
-    <!-- Kontrol Tombol Navigasi -->
+    <!-- Tombol Navigasi Kontrol -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Prev</button>
-      <button class="btn-control" onclick="togglePause()">Pause</button>
+      <button class="btn-control" onclick="replayIntro()">🎥 Ulang Intro</button>
       <button class="btn-control" onclick="nextParticipant()">Next ›</button>
     </div>
 
   </div>
 
   <script>
-    // Data Peserta (Liqo, Mudarissah, Nama Peserta, Foto)
+    const introOverlay = document.getElementById('introOverlay');
+    const introVideo = document.getElementById('introVideo');
+
+    // Otomatis tutup intro saat video selesai diputar (durasi ~20 detik)
+    introVideo.addEventListener('ended', function() {
+      finishIntro();
+    });
+
+    function finishIntro() {
+      introOverlay.classList.add('hidden');
+      introVideo.pause();
+    }
+
+    function replayIntro() {
+      introOverlay.classList.remove('hidden');
+      introVideo.currentTime = 0;
+      introVideo.play();
+    }
+
+    // Data Peserta Contoh
     const participants = [
       { 
-        liqo: "Liqo Khadijah - Palu Selatan",
-        mudarissah: "Ustadzah Nurhaliza, S.Pd.I.",
-        peserta: "Fulanah Binti Fulan", 
-        photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" 
+        liqo: "AL-ALAQ 9.PB4",
+        mudarissah: "EPA NURMALA",
+        peserta: "Riska Rahayu, A.md.Kep", 
+        photo: "https://via.placeholder.com/170x220" 
       },
       { 
-        liqo: "Liqo Aisyah - Palu Barat",
-        mudarissah: "Ustadzah Rahmawati, M.Ag.",
-        peserta: "Aisyah Az-Zahra", 
-        photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" 
-      },
-      { 
-        liqo: "Liqo Sumayyah - Mantikulore",
-        mudarissah: "Ustadzah Fatimah, S.H.",
-        peserta: "Khadijah Al-Kubra", 
-        photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400" 
+        liqo: "AL-ALAQ 9.PB4",
+        mudarissah: "EPA NURMALA",
+        peserta: "Anisya Ismail, A.md.Kep", 
+        photo: "https://via.placeholder.com/170x220" 
       }
     ];
 
@@ -285,12 +341,10 @@
       const pesertaEl = document.getElementById('pesertaDisplay');
       const photoEl = document.getElementById('photoDisplay');
 
-      // Reset Animasi
       card.style.animation = 'none';
       card.offsetHeight;
       card.style.animation = 'fadeInSlide 0.8s ease-out forwards';
 
-      // Update Teks & Foto
       liqoEl.innerText = participants[currentIndex].liqo;
       mudarissahEl.innerText = participants[currentIndex].mudarissah;
       pesertaEl.innerText = participants[currentIndex].peserta;
@@ -307,11 +361,6 @@
       updateDisplay();
     }
 
-    function togglePause() {
-      alert("Autoplay dijeda.");
-    }
-
-    // Inisialisasi awal
     updateDisplay();
   </script>
 
