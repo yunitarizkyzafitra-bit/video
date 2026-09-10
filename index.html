@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Pemanggilan Peserta Tasyakuran Dirosa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-emerald: #062619;
+            --gold-light: #FCE081;
+            --gold-main: #D4AF37;
+            --gold-dark: #AA771C;
+            --text-white: #FFFFFF;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-emerald);
+            color: var(--text-white);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Background Islamic Luxury Overlay */
+        .stage-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.25) 0%, transparent 70%),
+                radial-gradient(circle at 10% 90%, rgba(6, 38, 25, 0.9) 0%, rgba(3, 18, 12, 1) 100%),
+                linear-gradient(135deg, #093825 0%, #03170e 100%);
+            z-index: 1;
+        }
+
+        /* Ambient Glow & Ornaments */
+        .islamic-frame {
+            position: absolute;
+            inset: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .header-bar {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .header-title {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(180deg, #FFF6D0 0%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Stage Layout */
+        .stage-container {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 80px 80px 80px;
+        }
+
+        .card-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            height: 520px;
+            background: rgba(4, 24, 16, 0.75);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--gold-main);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.25);
+            overflow: hidden;
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Left Side: Photo */
+        .photo-section {
+            flex: 0 0 420px;
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 380px;
+            border-radius: 160px 160px 20px 20px;
+            border: 4px solid var(--gold-main);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.4);
+            overflow: hidden;
+            background: #092015;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Right Side: Participant Details */
+        .details-section {
+            flex: 1;
+            padding: 50px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .group-badge {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 6px 18px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-main));
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .participant-name {
+            font-family: 'Cinzel', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1.2;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .meta-info {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            row-gap: 12px;
+            font-size: 18px;
+            color: #D1E0D7;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: var(--gold-main);
+        }
+
+        /* Progress Bar Timer */
+        .progress-bar-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            transition: width 0.1s linear;
+        }
+
+        /* Floating Controls */
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            z-index: 20;
+            display: flex;
+            gap: 12px;
+            background: rgba(0,0,0,0.6);
+            padding: 10px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .btn {
+            background: transparent;
+            border: 1px solid var(--gold-main);
+            color: var(--gold-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--gold-main);
+            color: #000;
+        }
+
+        /* Smooth Animation Classes */
+        .slide-fade-enter {
+            opacity: 0;
+            transform: translateY(30px) scale(0.96);
+        }
+
+        .slide-fade-active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide-fade-exit {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.96);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stage-background"></div>
+    <div class="islamic-frame"></div>
+
+    <div class="header-bar">
+        <div class="header-title">TASYAKURAN DIROSA ANGKATAN IX — DPD WAHDAH ISLAMIYAH PALU</div>
+    </div>
+
+    <div class="stage-container">
+        <div class="card-container slide-fade-enter" id="participantCard">
+            <div class="photo-section">
+                <div class="photo-frame">
+                    <img id="pPhoto" src="https://via.placeholder.com/300x380/062619/D4AF37?text=Foto+Peserta" alt="Foto Peserta">
+                </div>
+            </div>
+            <div class="details-section">
+                <div class="group-badge" id="pLiqo">Nama Liqo</div>
+                <div class="participant-name" id="pName">Nama Peserta</div>
+                
+                <div class="meta-info">
+                    <div class="meta-label">Mudarrisah:</div>
+                    <div id="pMudarrisah">-</div>
+                    <div class="meta-label">No. Urut:</div>
+                    <div id="pNo">-</div>
+                    <div class="meta-label">Alamat:</div>
+                    <div id="pAlamat">-</div>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="timerBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn" onclick="prevParticipant()">❮ Prev</button>
+        <button class="btn" onclick="togglePlay()" id="playBtn">Pause</button>
+        <button class="btn" onclick="nextParticipant()">Next ❯</button>
+    </div>
+
+    <script>
+        // Data Peserta dari Excel
+        const participants = [
+            { no: 1, name: "Riska Rahayu, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "BTN green tinggede", photo: "Picture1.png" },
+            { no: 2, name: "Anisya Ismail, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Puskud", photo: "WhatsApp Image 2026-08-21 at 20.41.45.jpeg" },
+            { no: 3, name: "Endang Sudariyaningsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-", photo: "mk.png" },
+            { no: 4, name: "Apt. Nur Afiat. S. Farm", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Jl. Dewi Sartika no. 6", photo: "Picture1.png" },
+            { no: 5, name: "Yulianingsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-", photo: "kjl.png" },
+            { no: 1, name: "Maria Ulfa, AMD.AK", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur", photo: "" },
+            { no: 2, name: "Lisnawati", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. tekukur", photo: "" },
+            { no: 3, name: "Miliani", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Bulu Masomba", photo: "" },
+            { no: 4, name: "Warneng", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur", photo: "" }
+        ];
+
+        let currentIndex = 0;
+        let timerDuration = 30; // 30 detik
+        let remainingTime = timerDuration;
+        let timerInterval = null;
+        let isPlaying = true;
+
+        const card = document.getElementById('participantCard');
+        const pName = document.getElementById('pName');
+        const pLiqo = document.getElementById('pLiqo');
+        const pMudarrisah = document.getElementById('pMudarrisah');
+        const pNo = document.getElementById('pNo');
+        const pAlamat = document.getElementById('pAlamat');
+        const pPhoto = document.getElementById('pPhoto');
+        const timerBar = document.getElementById('timerBar');
+        const playBtn = document.getElementById('playBtn');
+
+        function renderParticipant(index) {
+            const data = participants[index];
+            
+            // Trigger Exit Animation
+            card.classList.remove('slide-fade-active');
+            card.classList.add('slide-fade-exit');
+
+            setTimeout(() => {
+                pName.innerText = data.name;
+                pLiqo.innerText = data.liqo;
+                pMudarrisah.innerText = data.mudarrisah;
+                pNo.innerText = data.no;
+                pAlamat.innerText = data.alamat;
+                
+                if (data.photo && data.photo !== "") {
+                    pPhoto.src = data.photo;
+                } else {
+                    pPhoto.src = "https://via.placeholder.com/300x380/062619/D4AF37?text=" + encodeURIComponent(data.name);
+                }
+
+                // Trigger Enter Animation
+                card.classList.remove('slide-fade-exit');
+                card.classList.add('slide-fade-enter');
+                
+                setTimeout(() => {
+                    card.classList.remove('slide-fade-enter');
+                    card.classList.add('slide-fade-active');
+                }, 50);
+
+                resetTimer();
+            }, 400);
+        }
+
+        function resetTimer() {
+            remainingTime = timerDuration;
+            timerBar.style.width = '100%';
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (!isPlaying) return;
+                
+                remainingTime -= 0.1;
+                let pct = (remainingTime / timerDuration) * 100;
+                timerBar.style.width = pct + '%';
+
+                if (remainingTime <= 0) {
+                    nextParticipant();
+                }
+            }, 100);
+        }
+
+        function nextParticipant() {
+            currentIndex = (currentIndex + 1) % participants.length;
+            renderParticipant(currentIndex);
+        }
+
+        function prevParticipant() {
+            currentIndex = (currentIndex - 1 + participants.length) % participants.length;
+            renderParticipant(currentIndex);
+        }
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            playBtn.innerText = isPlaying ? "Pause" : "Play";
+        }
+
+        // Keyboard Shortcut Controls
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') togglePlay();
+            if (e.code === 'ArrowRight') nextParticipant();
+            if (e.code === 'ArrowLeft') prevParticipant();
+        });
+
+        // Initialize App
+        renderParticipant(0);
+        startTimer();
+    </script>
+</body>
+</html>
