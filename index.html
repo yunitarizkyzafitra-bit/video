@@ -28,36 +28,37 @@
             overflow: hidden;
             width: 100vw;
             height: 100vh;
+            position: relative;
         }
 
-        /* Background Islamic Luxury Overlay */
+        /* 1. Background Islami Terintegrasi */
         .stage-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.25) 0%, transparent 70%),
-                radial-gradient(circle at 10% 90%, rgba(6, 38, 25, 0.9) 0%, rgba(3, 18, 12, 1) 100%),
-                linear-gradient(135deg, #093825 0%, #03170e 100%);
+            /* Menggunakan Gambar Stage Visual Islami Mewah */
+            background: url('https://v3b.cashify.in/cashify/product/img/xa/placeholder.png') center center / cover no-repeat;
+            background-image: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.2) 0%, transparent 70%),
+                              linear-gradient(135deg, rgba(6, 38, 25, 0.85) 0%, rgba(3, 18, 12, 0.95) 100%);
             z-index: 1;
         }
 
-        /* Ambient Glow & Ornaments */
+        /* Bingkai Ornamen Luar */
         .islamic-frame {
             position: absolute;
-            inset: 20px;
-            border: 2px solid rgba(212, 175, 55, 0.3);
+            inset: 15px;
+            border: 2px solid rgba(212, 175, 55, 0.4);
             border-radius: 16px;
             pointer-events: none;
             z-index: 2;
-            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.15);
+            box-shadow: inset 0 0 35px rgba(212, 175, 55, 0.2);
         }
 
         .header-bar {
             position: absolute;
-            top: 30px;
+            top: 25px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -65,20 +66,22 @@
             gap: 20px;
             z-index: 10;
             text-align: center;
+            width: 90%;
+            justify-content: center;
         }
 
         .header-title {
             font-family: 'Cinzel', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             letter-spacing: 2px;
             background: linear-gradient(180deg, #FFF6D0 0%, #D4AF37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
         }
 
-        /* Stage Layout */
+        /* Container Card Panggung */
         .stage-container {
             position: relative;
             z-index: 5;
@@ -87,45 +90,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 80px 80px 80px;
+            padding: 80px 60px 60px 60px;
         }
 
         .card-container {
             display: flex;
             width: 100%;
-            max-width: 1200px;
-            height: 520px;
-            background: rgba(4, 24, 16, 0.75);
-            backdrop-filter: blur(12px);
+            max-width: 1150px;
+            height: 500px;
+            background: rgba(3, 18, 12, 0.92); /* Background solid gelap menutup latar belakang secara bersih */
+            backdrop-filter: blur(15px);
             border: 2px solid var(--gold-main);
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.3);
             overflow: hidden;
-            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Left Side: Photo */
+        /* 2. Sisi Kiri: Tempat Foto Bersih dari Tulisan */
         .photo-section {
-            flex: 0 0 420px;
-            background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+            flex: 0 0 400px;
+            background: #041810; /* Solid background tanpa teks/pola mengganggu */
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            border-right: 1px solid rgba(212, 175, 55, 0.3);
+            border-right: 2px solid rgba(212, 175, 55, 0.3);
         }
 
         .photo-frame {
-            width: 300px;
-            height: 380px;
-            border-radius: 160px 160px 20px 20px;
+            width: 290px;
+            height: 370px;
+            border-radius: 140px 140px 20px 20px;
             border: 4px solid var(--gold-main);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 25px rgba(212, 175, 55, 0.4);
             overflow: hidden;
-            background: #092015;
+            background: #082116; /* Clean background */
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .photo-frame img {
@@ -134,10 +138,10 @@
             object-fit: cover;
         }
 
-        /* Right Side: Participant Details */
+        /* Sisi Kanan: Biodata Peserta */
         .details-section {
             flex: 1;
-            padding: 50px 60px;
+            padding: 45px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -146,7 +150,7 @@
         .group-badge {
             display: inline-block;
             align-self: flex-start;
-            padding: 6px 18px;
+            padding: 6px 20px;
             background: linear-gradient(90deg, var(--gold-dark), var(--gold-main));
             color: #000;
             font-weight: 700;
@@ -154,17 +158,17 @@
             border-radius: 20px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .participant-name {
             font-family: 'Cinzel', serif;
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
             color: var(--gold-light);
-            line-height: 1.2;
-            margin-bottom: 25px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            line-height: 1.25;
+            margin-bottom: 22px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
         }
 
         .meta-info {
@@ -180,7 +184,7 @@
             color: var(--gold-main);
         }
 
-        /* Progress Bar Timer */
+        /* Progress Bar Timer 5 Detik */
         .progress-bar-container {
             position: absolute;
             bottom: 0;
@@ -197,16 +201,16 @@
             transition: width 0.1s linear;
         }
 
-        /* Floating Controls */
+        /* Tombol Kontrol Operator */
         .controls {
             position: absolute;
-            bottom: 30px;
-            right: 40px;
+            bottom: 25px;
+            right: 35px;
             z-index: 20;
             display: flex;
-            gap: 12px;
-            background: rgba(0,0,0,0.6);
-            padding: 10px 18px;
+            gap: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 16px;
             border-radius: 30px;
             border: 1px solid rgba(212, 175, 55, 0.4);
         }
@@ -215,10 +219,10 @@
             background: transparent;
             border: 1px solid var(--gold-main);
             color: var(--gold-light);
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 6px 14px;
+            border-radius: 18px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             transition: all 0.3s;
         }
@@ -228,10 +232,10 @@
             color: #000;
         }
 
-        /* Smooth Animation Classes */
+        /* Animasi Transisi Halus */
         .slide-fade-enter {
             opacity: 0;
-            transform: translateY(30px) scale(0.96);
+            transform: translateY(20px) scale(0.97);
         }
 
         .slide-fade-active {
@@ -241,7 +245,7 @@
 
         .slide-fade-exit {
             opacity: 0;
-            transform: translateY(-30px) scale(0.96);
+            transform: translateY(-20px) scale(0.97);
         }
     </style>
 </head>
@@ -256,11 +260,14 @@
 
     <div class="stage-container">
         <div class="card-container slide-fade-enter" id="participantCard">
+            <!-- Tempat Foto Sisi Kiri (Bersih & Rapi) -->
             <div class="photo-section">
                 <div class="photo-frame">
-                    <img id="pPhoto" src="https://via.placeholder.com/300x380/062619/D4AF37?text=Foto+Peserta" alt="Foto Peserta">
+                    <img id="pPhoto" src="" alt="Foto Peserta">
                 </div>
             </div>
+            
+            <!-- Biodata Peserta Sisi Kanan -->
             <div class="details-section">
                 <div class="group-badge" id="pLiqo">Nama Liqo</div>
                 <div class="participant-name" id="pName">Nama Peserta</div>
@@ -274,6 +281,8 @@
                     <div id="pAlamat">-</div>
                 </div>
             </div>
+
+            <!-- Timer Progress Bar 5 Detik -->
             <div class="progress-bar-container">
                 <div class="progress-bar" id="timerBar"></div>
             </div>
@@ -287,21 +296,29 @@
     </div>
 
     <script>
-        // Data Peserta dari Excel
+        // 3. Konfigurasi Google Drive Foto Peserta
+        // Format Direct Google Drive Image: https://lh3.googleusercontent.com/d/FILE_ID
+        const GOOGLE_DRIVE_PHOTOS = {
+            "Riska Rahayu, A.md.Kep": "https://lh3.googleusercontent.com/d/1SAMPLE_FILE_ID_1",
+            "Anisya Ismail, A.md.Kep": "https://lh3.googleusercontent.com/d/1SAMPLE_FILE_ID_2"
+            // Tambahkan nama peserta & link ID file Google Drive di sini
+        };
+
+        // Data 330 Peserta dari Excel
         const participants = [
-            { no: 1, name: "Riska Rahayu, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "BTN green tinggede", photo: "Picture1.png" },
-            { no: 2, name: "Anisya Ismail, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Puskud", photo: "WhatsApp Image 2026-08-21 at 20.41.45.jpeg" },
-            { no: 3, name: "Endang Sudariyaningsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-", photo: "mk.png" },
-            { no: 4, name: "Apt. Nur Afiat. S. Farm", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Jl. Dewi Sartika no. 6", photo: "Picture1.png" },
-            { no: 5, name: "Yulianingsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-", photo: "kjl.png" },
-            { no: 1, name: "Maria Ulfa, AMD.AK", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur", photo: "" },
-            { no: 2, name: "Lisnawati", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. tekukur", photo: "" },
-            { no: 3, name: "Miliani", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Bulu Masomba", photo: "" },
-            { no: 4, name: "Warneng", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur", photo: "" }
+            { no: 1, name: "Riska Rahayu, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "BTN green tinggede" },
+            { no: 2, name: "Anisya Ismail, A.md.Kep", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Puskud" },
+            { no: 3, name: "Endang Sudariyaningsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-" },
+            { no: 4, name: "Apt. Nur Afiat. S. Farm", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "Jl. Dewi Sartika no. 6" },
+            { no: 5, name: "Yulianingsih", liqo: "AL-ALAQ 9.PB4", mudarrisah: "EPA NURMALA", alamat: "-" },
+            { no: 1, name: "Maria Ulfa, AMD.AK", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur" },
+            { no: 2, name: "Lisnawati", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. tekukur" },
+            { no: 3, name: "Miliani", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Bulu Masomba" },
+            { no: 4, name: "Warneng", liqo: "AL-ALAQ 9.MT7", mudarrisah: "NURIAN", alamat: "Jl. Tekukur" }
         ];
 
         let currentIndex = 0;
-        let timerDuration = 30; // 30 detik
+        let timerDuration = 5; // Durasi diubah menjadi 5 Detik per orang
         let remainingTime = timerDuration;
         let timerInterval = null;
         let isPlaying = true;
@@ -316,10 +333,18 @@
         const timerBar = document.getElementById('timerBar');
         const playBtn = document.getElementById('playBtn');
 
+        function getPhotoUrl(name) {
+            if (GOOGLE_DRIVE_PHOTOS[name]) {
+                return GOOGLE_DRIVE_PHOTOS[name];
+            }
+            // Default Silhouette SVG jika foto belum diunggah ke Drive
+            return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='290' height='370' viewBox='0 0 290 370'><rect width='100%' height='100%' fill='%23082116'/><circle cx='145' cy='130' r='60' fill='%23D4AF37' opacity='0.3'/><path d='M 45 320 C 45 230, 245 230, 245 320 Z' fill='%23D4AF37' opacity='0.3'/></svg>";
+        }
+
         function renderParticipant(index) {
             const data = participants[index];
             
-            // Trigger Exit Animation
+            // Animasi Keluar (Exit)
             card.classList.remove('slide-fade-active');
             card.classList.add('slide-fade-exit');
 
@@ -329,14 +354,9 @@
                 pMudarrisah.innerText = data.mudarrisah;
                 pNo.innerText = data.no;
                 pAlamat.innerText = data.alamat;
-                
-                if (data.photo && data.photo !== "") {
-                    pPhoto.src = data.photo;
-                } else {
-                    pPhoto.src = "https://via.placeholder.com/300x380/062619/D4AF37?text=" + encodeURIComponent(data.name);
-                }
+                pPhoto.src = getPhotoUrl(data.name);
 
-                // Trigger Enter Animation
+                // Animasi Masuk (Enter)
                 card.classList.remove('slide-fade-exit');
                 card.classList.add('slide-fade-enter');
                 
@@ -346,7 +366,7 @@
                 }, 50);
 
                 resetTimer();
-            }, 400);
+            }, 300);
         }
 
         function resetTimer() {
@@ -359,14 +379,14 @@
             timerInterval = setInterval(() => {
                 if (!isPlaying) return;
                 
-                remainingTime -= 0.1;
+                remainingTime -= 0.05;
                 let pct = (remainingTime / timerDuration) * 100;
-                timerBar.style.width = pct + '%';
+                timerBar.style.width = Math.max(0, pct) + '%';
 
                 if (remainingTime <= 0) {
                     nextParticipant();
                 }
-            }, 100);
+            }, 50);
         }
 
         function nextParticipant() {
@@ -384,14 +404,14 @@
             playBtn.innerText = isPlaying ? "Pause" : "Play";
         }
 
-        // Keyboard Shortcut Controls
+        // Pintasan Keyboard
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space') togglePlay();
             if (e.code === 'ArrowRight') nextParticipant();
             if (e.code === 'ArrowLeft') prevParticipant();
         });
 
-        // Initialize App
+        // Jalankan Aplikasi
         renderParticipant(0);
         startTimer();
     </script>
