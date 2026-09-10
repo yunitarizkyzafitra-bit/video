@@ -6,7 +6,7 @@
   <title>Tasyakuran Dirosa Angkatan IX</title>
   
   <!-- Font Islami & Elegan -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap">
 
   <style>
     * {
@@ -33,48 +33,77 @@
       background-repeat: no-repeat;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* Memindahkan kartu ke area bawah agar judul Angkatan IX tidak tertutup */
+      justify-content: flex-end;
       align-items: center;
-      padding-bottom: 90px;
+      padding-bottom: 75px;
     }
 
-    /* Card Digital Peserta */
+    /* Card Digital Peserta (Diperbesar) */
     .display-card {
       position: relative;
       z-index: 2;
-      width: 85%;
-      max-width: 780px;
-      padding: 20px 30px;
+      width: 90%;
+      max-width: 920px; /* Ukuran diperbesar */
+      padding: 25px 35px;
       display: flex;
-      align-items: center;
-      gap: 25px;
+      flex-direction: column;
+      gap: 15px;
       
       /* Styling Mewah Glassmorphism */
-      background: rgba(10, 25, 18, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(8, 22, 16, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 2px solid #d4af37;
-      border-radius: 20px;
+      border-radius: 24px;
       
       /* Efek Bayangan & Glow Emas */
       box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.6),
-        0 0 25px rgba(212, 175, 55, 0.35),
-        inset 0 0 15px rgba(212, 175, 55, 0.15);
+        0 20px 45px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(212, 175, 55, 0.35),
+        inset 0 0 20px rgba(212, 175, 55, 0.15);
 
       /* Animasi Transisi */
       animation: fadeInSlide 0.8s ease-out forwards;
     }
 
-    /* Frame Foto Peserta */
+    /* Header Tulisan Tasyakuran Dirosa dengan Efek Kaca (Glassmorphism) */
+    .glass-header {
+      align-self: center;
+      padding: 8px 30px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      margin-bottom: 5px;
+    }
+
+    .glass-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      color: #f3e5ab;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Konten Utama Kartu */
+    .card-body {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    /* Bingkai Foto Peserta (Diperbesar) */
     .photo-container {
       flex-shrink: 0;
-      width: 120px;
-      height: 150px;
-      border-radius: 12px;
+      width: 140px;
+      height: 175px;
+      border-radius: 16px;
       border: 2px solid #d4af37;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       background: #0d231a;
     }
 
@@ -84,42 +113,52 @@
       object-fit: cover;
     }
 
-    /* Informasi Teks Peserta */
+    /* Informasi Teks */
     .info-container {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       text-align: left;
     }
 
-    .info-container .sub-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      letter-spacing: 2px;
-      color: #f3e5ab;
+    /* 1. Nama Liqo */
+    .info-box .label {
+      font-size: 0.75rem;
       text-transform: uppercase;
-      margin-bottom: 5px;
-    }
-
-    .info-container .participant-name {
-      font-family: 'Cinzel', serif;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 215, 0, 0.3);
-      margin-bottom: 8px;
-      line-height: 1.2;
-    }
-
-    .info-container .participant-detail {
-      font-size: 1rem;
+      letter-spacing: 1.5px;
       color: #d4af37;
       font-weight: 600;
-      letter-spacing: 1px;
+    }
+
+    .info-box .value-liqo {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
+
+    /* 2. Nama Mudarissah */
+    .info-box .value-mudarissah {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f3e5ab;
+    }
+
+    /* 3. Nama Peserta (Utama) */
+    .info-box .value-peserta {
+      font-family: 'Cinzel', serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.4);
+      line-height: 1.2;
+      margin-top: 2px;
     }
 
     /* Tombol Navigasi Kontrol */
     .controls-container {
       position: absolute;
-      bottom: 25px;
+      bottom: 20px;
       z-index: 2;
       display: flex;
       gap: 12px;
@@ -163,19 +202,45 @@
 
   <div class="stage-container">
 
-    <!-- Card Pemanggilan Nama Peserta -->
+    <!-- Card Pemanggilan Digital (Lebih Besar) -->
     <div class="display-card" id="participantCard">
-      <!-- Bingkai Foto Peserta -->
-      <div class="photo-container">
-        <img id="photoDisplay" src="https://via.placeholder.com/150x200" alt="Foto Peserta">
+      
+      <!-- Header Efek Kaca / Glassmorphism -->
+      <div class="glass-header">
+        <h2>Tasyakuran Dirosa</h2>
       </div>
 
-      <!-- Detail Teks -->
-      <div class="info-container">
-        <div class="sub-title">Peserta Tasyakuran</div>
-        <div class="participant-name" id="nameDisplay">Fulanah Binti Fulan</div>
-        <div class="participant-detail" id="detailDisplay">Kecamatan Palu Selatan</div>
+      <!-- Konten Utama Kartu -->
+      <div class="card-body">
+        <!-- Bingkai Foto Peserta -->
+        <div class="photo-container">
+          <img id="photoDisplay" src="https://via.placeholder.com/150x200" alt="Foto Peserta">
+        </div>
+
+        <!-- Informasi Detail Teks -->
+        <div class="info-container">
+          
+          <!-- Nama Liqo -->
+          <div class="info-box">
+            <div class="label">Kelompok / Liqo</div>
+            <div class="value-liqo" id="liqoDisplay">Liqo Khadijah - Palu Selatan</div>
+          </div>
+
+          <!-- Nama Mudarissah -->
+          <div class="info-box">
+            <div class="label">Mudarissah</div>
+            <div class="value-mudarissah" id="mudarissahDisplay">Ustadzah Nurhaliza, S.Pd.I.</div>
+          </div>
+
+          <!-- Nama Peserta -->
+          <div class="info-box">
+            <div class="label">Nama Peserta</div>
+            <div class="value-peserta" id="pesertaDisplay">Fulanah Binti Fulan</div>
+          </div>
+
+        </div>
       </div>
+
     </div>
 
     <!-- Kontrol Tombol Navigasi -->
@@ -188,21 +253,24 @@
   </div>
 
   <script>
-    // Data Peserta beserta foto masing-masing
+    // Data Peserta Terintegrasi (Liqo, Mudarissah, Nama Peserta, Foto)
     const participants = [
       { 
-        name: "Fulanah Binti Fulan", 
-        detail: "Kecamatan Palu Selatan", 
+        liqo: "Liqo Khadijah - Palu Selatan",
+        mudarissah: "Ustadzah Nurhaliza, S.Pd.I.",
+        peserta: "Fulanah Binti Fulan", 
         photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300" 
       },
       { 
-        name: "Aisyah Az-Zahra", 
-        detail: "Kecamatan Palu Barat", 
+        liqo: "Liqo Aisyah - Palu Barat",
+        mudarissah: "Ustadzah Rahmawati, M.Ag.",
+        peserta: "Aisyah Az-Zahra", 
         photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300" 
       },
       { 
-        name: "Khadijah Al-Kubra", 
-        detail: "Kecamatan Mantikulore", 
+        liqo: "Liqo Sumayyah - Mantikulore",
+        mudarissah: "Ustadzah Fatimah, S.H.",
+        peserta: "Khadijah Al-Kubra", 
         photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300" 
       }
     ];
@@ -211,8 +279,9 @@
 
     function updateDisplay() {
       const card = document.getElementById('participantCard');
-      const nameEl = document.getElementById('nameDisplay');
-      const detailEl = document.getElementById('detailDisplay');
+      const liqoEl = document.getElementById('liqoDisplay');
+      const mudarissahEl = document.getElementById('mudarissahDisplay');
+      const pesertaEl = document.getElementById('pesertaDisplay');
       const photoEl = document.getElementById('photoDisplay');
 
       // Reset Animasi
@@ -220,9 +289,10 @@
       card.offsetHeight;
       card.style.animation = 'fadeInSlide 0.8s ease-out forwards';
 
-      // Update Isi
-      nameEl.innerText = participants[currentIndex].name;
-      detailEl.innerText = participants[currentIndex].detail;
+      // Update Teks & Foto
+      liqoEl.innerText = participants[currentIndex].liqo;
+      mudarissahEl.innerText = participants[currentIndex].mudarissah;
+      pesertaEl.innerText = participants[currentIndex].peserta;
       photoEl.src = participants[currentIndex].photo;
     }
 
