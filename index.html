@@ -29,7 +29,7 @@
       background-color: #000;
     }
 
-    /* START SCREEN */
+    /* 1. LAYAR UTAMA AWAL (IZIN AUTOPLAY BROWSER) */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
@@ -76,7 +76,7 @@
       box-shadow: 0 0 45px rgba(212, 175, 55, 1);
     }
 
-    /* OVERLAY VIDEO */
+    /* 2. OVERLAY VIDEO OPENING */
     .intro-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -124,7 +124,7 @@
       color: #041B12;
     }
 
-    /* PANGGUNG DISPLAY UTAMA */
+    /* 3. PANGGUNG DISPLAY UTAMA */
     .stage-container {
       position: relative;
       width: 100vw; height: 100vh;
@@ -232,17 +232,18 @@
 </head>
 <body>
 
-  <!-- SCREEN AWAL -->
+  <!-- TOMBOL AWAL PERIZINAN MEDIA -->
   <div class="start-screen" id="startScreen">
     <h1>TASYAKURAN DIROSA IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- OVERLAY VIDEO -->
+  <!-- OVERLAY PEMUTAR VIDEO -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <source src="video_1.mp4" type="video/mp4">
-      <source src="video_1.webm" type="video/webm">
+      <!-- Menggunakan nama asli file di repositori -->
+      <source src="204923-925628367.mp4" type="video/mp4">
+      <source src="204923-925628367.webm" type="video/webm">
     </video>
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
@@ -277,18 +278,27 @@
     function startEvent() {
       startScreen.classList.add('fade-out');
       introVideo.currentTime = 0;
-      
+
+      // Jalankan video saat tombol diklik
       const playPromise = introVideo.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Jika ditolak browser, putar secara silent/muted agar tetap jalan
+        playPromise.catch(error => {
+          console.warn("Autoplay ditolak browser, memutar secara muted:", error);
           introVideo.muted = true;
           introVideo.play();
         });
       }
     }
 
+    // Ketika video selesai diputar otomatis pindah ke panggung
     introVideo.addEventListener('ended', finishIntro);
+
+    // Jika terjadi error pemutaran video, langsung buka panggung agar aplikasi tidak hang
+    introVideo.addEventListener('error', function(e) {
+      console.error("Video error:", e);
+      alert("Video tidak dapat dimuat, berpindah ke tampilan panggung.");
+      finishIntro();
+    });
 
     function finishIntro() {
       introOverlay.classList.add('hidden');
@@ -303,6 +313,7 @@
       introVideo.play();
     }
 
+    // Data Contoh
     const participants = [
       { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Riska Rahayu, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
       { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Anisya Ismail, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
@@ -329,5 +340,6 @@
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
   </script>
+
 </body>
 </html>
