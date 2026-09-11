@@ -29,7 +29,7 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR UTAMA AWAL (IZIN AUTOPLAY BROWSER) */
+    /* 1. LAYAR UTAMA AWAL (PERIZINAN AUTOPLAY) */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
@@ -41,7 +41,7 @@
       justify-content: center;
       align-items: center;
       gap: 25px;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 1s ease, visibility 1s ease;
     }
 
     .start-screen.fade-out {
@@ -68,11 +68,11 @@
       border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .btn-start-event:hover {
-      transform: scale(1.08);
+      transform: scale(1.06);
       box-shadow: 0 0 45px rgba(212, 175, 55, 1);
     }
 
@@ -88,7 +88,7 @@
       align-items: center;
       opacity: 1;
       visibility: visible;
-      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
     .intro-overlay.hidden {
@@ -116,7 +116,7 @@
       border-radius: 30px;
       cursor: pointer;
       backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .btn-skip:hover {
@@ -136,6 +136,7 @@
       align-items: center;
     }
 
+    /* KARTU DENGAN TRANSISI HALUS & ELEGAN */
     .display-card {
       position: relative;
       z-index: 10;
@@ -147,9 +148,13 @@
       border: 3px solid var(--gold-main);
       border-radius: 28px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
+      
+      /* Animasi Halus (Smooth) */
       opacity: 0;
-      transform: translateY(20px) scale(0.96);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(35px) scale(0.95);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
     .display-card.show {
@@ -186,6 +191,7 @@
       border: 3px solid var(--gold-main);
       overflow: hidden;
       background: #0d231a;
+      transition: opacity 0.8s ease;
     }
 
     .photo-container img {
@@ -196,6 +202,7 @@
     .info-container {
       flex-grow: 1;
       display: flex; flex-direction: column; gap: 10px;
+      transition: opacity 0.8s ease;
     }
 
     .info-box .label {
@@ -227,6 +234,12 @@
       font-size: 0.9rem; font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-control:hover {
+      background: var(--gold-main);
+      color: #041B12;
     }
   </style>
 </head>
@@ -238,17 +251,15 @@
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- OVERLAY PEMUTAR VIDEO -->
+  <!-- OVERLAY PEMUTAR VIDEO OPENING -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <!-- Menggunakan nama asli file di repositori -->
-      <source src="204923-925628367.mp4" type="video/mp4">
-      <source src="204923-925628367.webm" type="video/webm">
+      <source src="opening.mp4" type="video/mp4">
     </video>
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
 
-  <!-- DISPLAY UTAMA -->
+  <!-- DISPLAY UTAMA PANGGUNG -->
   <div class="stage-container">
     <div class="display-card" id="participantCard">
       <div class="glass-header"><h2>Tasyakuran Dirosa</h2></div>
@@ -262,6 +273,7 @@
       </div>
     </div>
 
+    <!-- TOMBOL KONTROL -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Opening</button>
@@ -279,41 +291,45 @@
       startScreen.classList.add('fade-out');
       introVideo.currentTime = 0;
 
-      // Jalankan video saat tombol diklik
       const playPromise = introVideo.play();
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          console.warn("Autoplay ditolak browser, memutar secara muted:", error);
+          console.warn("Autoplay ditolak, memutar tanpa suara:", error);
           introVideo.muted = true;
           introVideo.play();
         });
       }
     }
 
-    // Ketika video selesai diputar otomatis pindah ke panggung
     introVideo.addEventListener('ended', finishIntro);
 
-    // Jika terjadi error pemutaran video, langsung buka panggung agar aplikasi tidak hang
     introVideo.addEventListener('error', function(e) {
       console.error("Video error:", e);
-      alert("Video tidak dapat dimuat, berpindah ke tampilan panggung.");
+      alert("Video tidak dapat dimuat. Membuka langsung panggung utama.");
       finishIntro();
     });
 
     function finishIntro() {
       introOverlay.classList.add('hidden');
-      setTimeout(() => introVideo.pause(), 1000);
-      participantCard.classList.add('show');
+      setTimeout(() => introVideo.pause(), 1200);
+      
+      // Delay sedikit sebelum menampilkan kartu agar masa transisi sangat halus
+      setTimeout(() => {
+        participantCard.classList.add('show');
+      }, 400);
     }
 
     function replayIntro() {
       participantCard.classList.remove('show');
-      introOverlay.classList.remove('hidden');
-      introVideo.currentTime = 0;
-      introVideo.play();
+      
+      setTimeout(() => {
+        introOverlay.classList.remove('hidden');
+        introVideo.currentTime = 0;
+        introVideo.play();
+      }, 600);
     }
 
-    // Data Contoh
+    // Data Peserta
     const participants = [
       { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Riska Rahayu, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
       { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Anisya Ismail, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
@@ -321,21 +337,43 @@
     ];
 
     let currentIndex = 0;
+    let isTransitioning = false;
 
+    // FUNGSI UPDATE PERGANTIAN DENGAN TRANSISI HALUS DAN MANTAP
     function updateDisplay() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      // 1. Redupkan / hilangkan kartu secara perlahan
       participantCard.classList.remove('show');
+
+      // 2. Tunggu 600ms (pas di tengah durasi animasi hilangnya kartu)
       setTimeout(() => {
         document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
         document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
         document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
         document.getElementById('photoDisplay').src = participants[currentIndex].photo;
+
+        // 3. Munculkan kembali kartu secara perlahan dengan efek membal mulus
         participantCard.classList.add('show');
-      }, 300);
+        
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 600);
+      }, 600);
     }
 
-    function nextParticipant() { currentIndex = (currentIndex + 1) % participants.length; updateDisplay(); }
-    function prevParticipant() { currentIndex = (currentIndex - 1 + participants.length) % participants.length; updateDisplay(); }
+    function nextParticipant() { 
+      currentIndex = (currentIndex + 1) % participants.length; 
+      updateDisplay(); 
+    }
 
+    function prevParticipant() { 
+      currentIndex = (currentIndex - 1 + participants.length) % participants.length; 
+      updateDisplay(); 
+    }
+
+    // Inisialisasi awal
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
