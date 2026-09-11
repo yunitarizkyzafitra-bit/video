@@ -29,13 +29,13 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING UTAMA: HIJAU EMERALD & ORNAMEN KEEMASAN */
+    /* 1. LAYAR OPENING UTAMA: HIJAU ISLAMI & KEMENANGAN KEEMASAN */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 3000;
-      background: linear-gradient(135deg, #022c1b 0%, #051810 50%, #010f08 100%);
+      background: radial-gradient(circle at center, #063d26 0%, #032114 55%, #010c07 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,37 +45,37 @@
       overflow: hidden;
     }
 
-    /* Ornamen Keemasan Berlapis & Pancaran Lampu Latar Megah */
+    /* Ornamen Cahaya Islami & Pola Keemasan Megah */
     .start-screen::before {
       content: '';
       position: absolute;
       width: 160vw;
       height: 160vh;
       background: 
-        radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, rgba(5, 24, 16, 0) 65%),
-        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 40px),
-        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 40px);
-      animation: ambientGlow 12s ease-in-out infinite alternate;
+        radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(4, 30, 18, 0) 70%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0px, rgba(212, 175, 55, 0.05) 2px, transparent 2px, transparent 35px),
+        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.05) 0px, rgba(212, 175, 55, 0.05) 2px, transparent 2px, transparent 35px);
+      animation: ambientGlow 10s ease-in-out infinite alternate;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Aksen Bingkai Ornamen Geometris Islami Keemasan di Layar Pembuka */
+    /* Bingkai Geometris Keemasan Mewah */
     .start-screen::after {
       content: '';
       position: absolute;
-      width: 85vw;
-      height: 85vh;
-      border: 3px solid rgba(212, 175, 55, 0.35);
-      border-radius: 30px;
-      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2), inset 0 0 40px rgba(212, 175, 55, 0.2);
+      width: 88vw;
+      height: 88vh;
+      border: 3px solid rgba(212, 175, 55, 0.45);
+      border-radius: 35px;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.25), inset 0 0 45px rgba(212, 175, 55, 0.25);
       z-index: 1;
       pointer-events: none;
     }
 
     @keyframes ambientGlow {
       0% { transform: scale(1); opacity: 0.85; }
-      100% { transform: scale(1.06); opacity: 1; }
+      100% { transform: scale(1.07); opacity: 1; }
     }
 
     .start-screen > * {
@@ -83,7 +83,7 @@
       z-index: 2;
     }
 
-    /* WADAH KARTU LOGO DENGAN ANIMASI BERDENYUT (PULSE) */
+    /* KARTU LOGO DENGAN ANIMASI BERDENYUT HALUS */
     .logo-card {
       background: rgba(255, 255, 255, 0.06);
       border: 2px solid var(--gold-main);
@@ -183,9 +183,9 @@
       opacity: 0;
       transform: translateY(40px) scale(0.92);
       filter: blur(12px);
-      transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform, filter;
     }
 
@@ -217,7 +217,7 @@
       gap: 35px;
     }
 
-    /* KONTAINER BINGKAI FOTO PRESISI */
+    /* KONTAINER BINGKAI FOTO PRESISI DENGAN TRANSISI HALUS */
     .photo-container {
       flex-shrink: 0;
       width: 170px; height: 220px;
@@ -234,10 +234,17 @@
     .photo-container img {
       width: 100%; 
       height: 100%;
-      object-fit: contain;
-      object-position: center;
+      object-fit: cover; /* Presisi tinggi mengisi bingkai tanpa distorsi */
+      object-position: center top;
       background-color: #06150e;
-      transition: transform 0.8s ease, filter 0.8s ease;
+      opacity: 1;
+      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+    }
+
+    /* Efek transisi pudar khusus pergantian gambar foto */
+    .photo-container img.fade-anim {
+      opacity: 0;
+      transform: scale(0.95);
     }
 
     .info-container {
@@ -264,6 +271,7 @@
     .controls-container {
       position: absolute; bottom: 25px;
       display: flex; gap: 15px;
+      align-items: center;
     }
 
     .btn-control {
@@ -281,11 +289,19 @@
       background: var(--gold-main);
       color: #041B12;
     }
+
+    .counter-indicator {
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN: HIJAU EMERALD, ORNAMEN KEEMASAN, TEKS & LOGO BERANIMASI -->
+  <!-- LAYAR OPENING DEPAN: HIJAU ISLAMI & KEMENANGAN KEEMASAN -->
   <div class="start-screen" id="startScreen">
     <div class="logo-card">
       <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
@@ -301,7 +317,7 @@
       <div class="glass-header"><h2>Tasyakuran Dirosa</h2></div>
       <div class="card-body">
         <div class="photo-container">
-          <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto">
+          <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto Peserta">
         </div>
         <div class="info-container">
           <div class="info-box"><div class="label">Kelompok / Liqo</div><div class="value-liqo" id="liqoDisplay">Menghubungkan Server...</div></div>
@@ -311,11 +327,12 @@
       </div>
     </div>
 
-    <!-- KONTROL NAVIGASI -->
+    <!-- KONTROL NAVIGASI & INDIKATOR URUTAN LENGKAP -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="showOpening()">🏠 Kembali ke Opening</button>
       <button class="btn-control" onclick="nextParticipant()">Selanjutnya ›</button>
+      <span class="counter-indicator" id="counterIndicator">0 / 0</span>
     </div>
   </div>
 
@@ -343,7 +360,7 @@
     async function fetchSecureSpreadsheetData() {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        const timeoutId = setTimeout(() => controller.abort(), 12000);
 
         const response = await fetch(secureEndpoint, { 
           method: 'GET',
@@ -359,6 +376,7 @@
 
         const rawData = await response.json();
 
+        // Memastikan SELURUH data peserta terpanggil utuh tanpa ada yang terlewat
         if (Array.isArray(rawData) && rawData.length > 0) {
           participants = rawData.map(item => ({
             liqo: sanitizeInput(item.liqo || '-'),
@@ -367,7 +385,8 @@
             photo: sanitizeUrl(item.photo || 'https://via.placeholder.com/170x220')
           }));
 
-          updateCardContent();
+          updateCardContent(false);
+          updateCounter();
         } else {
           triggerEmptyDataState();
         }
@@ -378,7 +397,8 @@
             { liqo: "SISTEM OFFLINE", mudarissah: "MOHON PERIKSA KONEKSI", peserta: "Sinkronisasi Tertunda", photo: "https://via.placeholder.com/170x220" }
           ];
         }
-        updateCardContent();
+        updateCardContent(false);
+        updateCounter();
       }
     }
 
@@ -418,15 +438,40 @@
       }, 500);
     }
 
-    function updateCardContent() {
+    function updateCardContent(withPhotoFade = true) {
       if (participants.length === 0) return;
-      document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
-      document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
-      document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
-      document.getElementById('photoDisplay').src = participants[currentIndex].photo;
+      
+      const currentData = participants[currentIndex];
+      
+      document.getElementById('liqoDisplay').innerText = currentData.liqo;
+      document.getElementById('mudarissahDisplay').innerText = currentData.mudarissah;
+      document.getElementById('pesertaDisplay').innerText = currentData.peserta;
+
+      const photoEl = document.getElementById('photoDisplay');
+      
+      if (withPhotoFade) {
+        photoEl.classList.add('fade-anim');
+        setTimeout(() => {
+          photoEl.src = currentData.photo;
+          photoEl.onload = () => {
+            photoEl.classList.remove('fade-anim');
+          };
+        }, 300);
+      } else {
+        photoEl.src = currentData.photo;
+      }
     }
 
-    // TRANSISI SINKRON SEMPURNA: Foto & teks berganti mulus bersamaan
+    function updateCounter() {
+      const counterEl = document.getElementById('counterIndicator');
+      if (participants.length > 0) {
+        counterEl.innerText = `${currentIndex + 1} dari ${participants.length}`;
+      } else {
+        counterEl.innerText = `0 / 0`;
+      }
+    }
+
+    // TRANSISI SINKRON HALUS: Kartu utama dan foto memudar bersamaan selaras saat dipanggil
     function updateDisplay() {
       if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
@@ -434,13 +479,14 @@
       participantCard.classList.remove('show');
 
       setTimeout(() => {
-        updateCardContent();
+        updateCardContent(true);
+        updateCounter();
         participantCard.classList.add('show');
 
         setTimeout(() => {
           isTransitioning = false;
-        }, 800);
-      }, 800);
+        }, 600);
+      }, 600);
     }
 
     function nextParticipant() { 
@@ -455,7 +501,16 @@
       updateDisplay(); 
     }
 
-    // Inisialisasi awal
+    // Navigasi keyboard cepat (Tombol Panah Kanan / Kiri)
+    document.addEventListener('keydown', event => {
+      if (event.key === 'ArrowRight') {
+        nextParticipant();
+      } else if (event.key === 'ArrowLeft') {
+        prevParticipant();
+      }
+    });
+
+    // Inisialisasi awal sinkronisasi data keseluruhan peserta
     fetchSecureSpreadsheetData();
   </script>
 
