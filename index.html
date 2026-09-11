@@ -3,16 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tasyakuran Dirosa Angkatan IX</title>
+  <title>Tasyakuran Dirosa Angkatan IX - Display Panggung</title>
   
-  <!-- Font Islami & Elegan -->
+  <!-- Font Tipografi Islami & Modern -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap">
 
   <style>
+    :root {
+      --gold-main: #D4AF37;
+      --gold-light: #F3E5AB;
+      --bg-dark-green: rgba(5, 18, 12, 0.94);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
     }
 
     body, html {
@@ -23,58 +30,75 @@
       background-color: #000;
     }
 
-    /* ----------------------------------
-       1. LAYAR START (IZIN AUTOPLAY BROWSER)
-    ---------------------------------- */
+    /* ----------------------------------------------------
+       1. SCREEN TOMBOL AWAL (IZIN AUTOPLAY BROWSER)
+    ---------------------------------------------------- */
     .start-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 2000;
-      background: #041B12;
+      z-index: 3000;
+      background: radial-gradient(circle, #08291b 0%, #020d08 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
 
-    .btn-start-app {
-      background: linear-gradient(135deg, #d4af37, #aa7c11);
+    .start-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .start-screen h1 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 2.2rem;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      text-align: center;
+    }
+
+    .btn-start-event {
+      background: linear-gradient(135deg, #d4af37, #997413);
       border: 2px solid #fff;
       color: #041B12;
-      padding: 16px 40px;
-      font-size: 1.2rem;
+      padding: 18px 45px;
+      font-size: 1.25rem;
       font-weight: 700;
-      border-radius: 40px;
+      border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .btn-start-app:hover {
+    .btn-start-event:hover {
       transform: scale(1.08);
+      box-shadow: 0 0 45px rgba(212, 175, 55, 1);
     }
 
-    /* ----------------------------------
-       2. LAYAR VIDEO INTRO
-    ---------------------------------- */
+    /* ----------------------------------------------------
+       2. OVERLAY VIDEO OPENING (TRANSISI SMOOTH/CINEMATIC)
+    ---------------------------------------------------- */
     .intro-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 1000;
+      z-index: 2000;
       background: #000;
       display: flex;
       justify-content: center;
       align-items: center;
       opacity: 1;
       visibility: visible;
-      transition: opacity 1s ease, visibility 1s ease;
+      /* Transisi Halus 1.2 Detik */
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .intro-overlay.hidden {
@@ -89,26 +113,34 @@
       object-fit: cover;
     }
 
+    /* Tombol Lewati Video untuk Operator */
     .btn-skip {
       position: absolute;
-      bottom: 30px;
-      right: 30px;
-      z-index: 1010;
-      background: rgba(12, 30, 22, 0.85);
-      border: 2px solid #d4af37;
+      bottom: 35px;
+      right: 35px;
+      z-index: 2010;
+      background: rgba(5, 18, 12, 0.85);
+      border: 1.5px solid var(--gold-main);
       color: #fff;
-      padding: 12px 30px;
+      padding: 12px 28px;
       font-size: 0.95rem;
       font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
     }
 
-    /* ----------------------------------
-       3. PANGGUNG UTAMA & KARTU NAMA
-    ---------------------------------- */
+    .btn-skip:hover {
+      background: var(--gold-main);
+      color: #041B12;
+      transform: translateY(-2px);
+    }
+
+    /* ----------------------------------------------------
+       3. PANGGUNG UTAMA & KARTU NAMA PESERTA
+    ---------------------------------------------------- */
     .stage-container {
       position: relative;
       width: 100vw;
@@ -122,6 +154,7 @@
       align-items: center;
     }
 
+    /* Kartu nama khusus menutup area tengah panggung saja */
     .display-card {
       position: relative;
       z-index: 10;
@@ -133,15 +166,24 @@
       flex-direction: column;
       justify-content: center;
       gap: 20px;
-      background: rgba(5, 18, 12, 0.94); 
+      background: var(--bg-dark-green); 
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 3px solid #d4af37;
+      border: 3px solid var(--gold-main);
       border-radius: 28px;
       box-shadow: 
         0 20px 50px rgba(0, 0, 0, 0.85),
         0 0 35px rgba(212, 175, 55, 0.4),
         inset 0 0 20px rgba(212, 175, 55, 0.2);
+      opacity: 0;
+      transform: translateY(20px) scale(0.96);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    /* Kelas animasi saat kartu dipanggil/berganti */
+    .display-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .glass-header {
@@ -152,14 +194,16 @@
       border: 1.5px solid rgba(212, 175, 55, 0.6);
       border-radius: 35px;
       margin-bottom: 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     .glass-header h2 {
       font-family: 'Cinzel', serif;
       font-size: 1.35rem;
       letter-spacing: 5px;
-      color: #f3e5ab;
+      color: var(--gold-light);
       text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .card-body {
@@ -173,8 +217,9 @@
       width: 170px;
       height: 220px;
       border-radius: 18px;
-      border: 3px solid #d4af37;
+      border: 3px solid var(--gold-main);
       overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       background: #0d231a;
     }
 
@@ -196,8 +241,9 @@
       font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: #d4af37;
+      color: var(--gold-main);
       font-weight: 600;
+      margin-bottom: 2px;
     }
 
     .info-box .value-liqo {
@@ -209,7 +255,7 @@
     .info-box .value-mudarissah {
       font-size: 1.3rem;
       font-weight: 600;
-      color: #f3e5ab;
+      color: var(--gold-light);
     }
 
     .info-box .value-peserta {
@@ -217,9 +263,12 @@
       font-size: 2.6rem;
       font-weight: 800;
       color: #ffffff;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 18px rgba(255, 215, 0, 0.4);
       line-height: 1.15;
+      margin-top: 3px;
     }
 
+    /* Controls Navigasi Panggung */
     .controls-container {
       position: absolute;
       bottom: 25px;
@@ -230,47 +279,47 @@
 
     .btn-control {
       background: rgba(12, 30, 22, 0.9);
-      border: 1.5px solid #d4af37;
+      border: 1.5px solid var(--gold-main);
       color: #fff;
       padding: 10px 28px;
       font-size: 0.9rem;
       font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
-    @keyframes fadeInSlide {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    .btn-control:hover {
+      background: var(--gold-main);
+      color: #0d231a;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. SCREEN AWAL PEMANASAN AUTOPLAY -->
+  <!-- 1. SCREEN INITIAL START (MEMBUKA IZIN AUTOPLAY BROWSER) -->
   <div class="start-screen" id="startScreen">
-    <h1 style="color: #f3e5ab; font-family: 'Cinzel', serif;">TASYAKURAN DIROSA IX</h1>
-    <button class="btn-start-app" onclick="startEvent()">🎬 MULAI ACARA</button>
+    <h1>TASYAKURAN DIROSA IX</h1>
+    <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- 2. OVERLAY VIDEO INTRO PEMBUKA -->
+  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <!-- Pastikan file video bernama video_1.mp4 di folder yang sama -->
+      <!-- File video opening disimpan dengan nama video_1.mp4 -->
       <source src="./video_1.mp4" type="video/mp4">
-      Browser tidak mendukung format video ini.
+      Browser kamu tidak mendukung pemutaran video ini.
     </video>
-    <button class="btn-skip" onclick="finishIntro()">Lewati Video ›</button>
+    <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
 
-  <!-- 3. PANGGUNG APLIKASI -->
+  <!-- 3. TAMPILAN PANGGUNG DISPLAY UTAMA -->
   <div class="stage-container">
+
     <div class="display-card" id="participantCard">
       <div class="glass-header">
         <h2>Tasyakuran Dirosa</h2>
@@ -294,50 +343,64 @@
 
           <div class="info-box">
             <div class="label">Nama Peserta</div>
-            <div class="value-peserta" id="pesertaDisplay">Menunggu Pemanggilan...</div>
+            <div class="value-peserta" id="pesertaDisplay">Siap Dipanggil...</div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Tombol Navigasi Kontrol Operator -->
     <div class="controls-container">
-      <button class="btn-control" onclick="prevParticipant()">‹ Prev</button>
-      <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Intro</button>
-      <button class="btn-control" onclick="nextParticipant()">Next ›</button>
+      <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
+      <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Opening</button>
+      <button class="btn-control" onclick="nextParticipant()">Selanjutnya ›</button>
     </div>
+
   </div>
 
   <script>
     const startScreen = document.getElementById('startScreen');
     const introOverlay = document.getElementById('introOverlay');
     const introVideo = document.getElementById('introVideo');
+    const participantCard = document.getElementById('participantCard');
 
-    // 1. Fungsi Klik Mulai Acara oleh Operator
+    // 1. Eksekusi Mulai Acara (Bypass Kebijakan Autoplay Browser)
     function startEvent() {
-      startScreen.style.display = 'none';
+      startScreen.classList.add('fade-out');
+      
+      // Putar Video Opening
       introVideo.currentTime = 0;
       introVideo.play().catch(function(error) {
-        console.log("Autoplay video gagal:", error);
+        console.log("Autoplay blocked/failed:", error);
       });
     }
 
-    // 2. Video Selesai Otomatis -> Tutup Intro
+    // 2. Transisi Halus Otomatis Saat Video Selesai
     introVideo.addEventListener('ended', function() {
       finishIntro();
     });
 
+    // 3. Selesaikan Opening & Tampilkan Kartu Panggung
     function finishIntro() {
+      // Transisi Fade Out Video Overlay (1.2 detik)
       introOverlay.classList.add('hidden');
-      introVideo.pause();
+      setTimeout(() => {
+        introVideo.pause();
+      }, 1200);
+
+      // Tampilkan Kartu Nama Peserta Pertama
+      participantCard.classList.add('show');
     }
 
+    // 4. Fitur Putar Ulang Video Opening
     function replayIntro() {
+      participantCard.classList.remove('show');
       introOverlay.classList.remove('hidden');
       introVideo.currentTime = 0;
       introVideo.play();
     }
 
-    // Data Contoh Peserta
+    // Data Peserta (Sampel Data Pemanggilan)
     const participants = [
       { 
         liqo: "AL-ALAQ 9.PB4",
@@ -350,26 +413,29 @@
         mudarissah: "EPA NURMALA",
         peserta: "Anisya Ismail, A.md.Kep", 
         photo: "https://via.placeholder.com/170x220" 
+      },
+      { 
+        liqo: "AL-ALAQ 9.PB4",
+        mudarissah: "EPA NURMALA",
+        peserta: "Endang Sudariyaningsih", 
+        photo: "https://via.placeholder.com/170x220" 
       }
     ];
 
     let currentIndex = 0;
 
+    // Updates Tampilan Data dengan Animasi Smooth
     function updateDisplay() {
-      const card = document.getElementById('participantCard');
-      const liqoEl = document.getElementById('liqoDisplay');
-      const mudarissahEl = document.getElementById('mudarissahDisplay');
-      const pesertaEl = document.getElementById('pesertaDisplay');
-      const photoEl = document.getElementById('photoDisplay');
+      participantCard.classList.remove('show');
 
-      card.style.animation = 'none';
-      card.offsetHeight;
-      card.style.animation = 'fadeInSlide 0.8s ease-out forwards';
+      setTimeout(() => {
+        document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
+        document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
+        document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
+        document.getElementById('photoDisplay').src = participants[currentIndex].photo;
 
-      liqoEl.innerText = participants[currentIndex].liqo;
-      mudarissahEl.innerText = participants[currentIndex].mudarissah;
-      pesertaEl.innerText = participants[currentIndex].peserta;
-      photoEl.src = participants[currentIndex].photo;
+        participantCard.classList.add('show');
+      }, 300);
     }
 
     function nextParticipant() {
@@ -382,7 +448,10 @@
       updateDisplay();
     }
 
-    updateDisplay();
+    // Inisialisasi awal data
+    document.getElementById('liqoDisplay').innerText = participants[0].liqo;
+    document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
+    document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
   </script>
 
 </body>
