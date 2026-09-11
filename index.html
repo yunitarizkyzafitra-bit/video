@@ -40,7 +40,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
       transition: opacity 1.2s ease, visibility 1.2s ease;
     }
 
@@ -50,12 +50,37 @@
       pointer-events: none;
     }
 
-    /* LOGO WAHDAH DI PALING ATAS OPENING */
+    /* WADAH KARTU UNTUK LOGO MWD */
+    .logo-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--gold-main);
+      border-radius: 24px;
+      padding: 20px 35px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      /* Transisi animasi logo */
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
+    }
+
+    .logo-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.6);
+    }
+
+    /* LOGO MEMBESAR MENYESUAIKAN WADAH KARTU */
     .logo-wahdah {
-      width: 120px;
+      width: 160px;
       height: auto;
-      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
-      margin-bottom: 10px;
+      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+      transition: transform 0.5s ease;
+    }
+
+    .logo-card:hover .logo-wahdah {
+      transform: scale(1.05);
     }
 
     .start-screen h1 {
@@ -78,7 +103,6 @@
       cursor: pointer;
       box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
-      margin-top: 10px;
     }
 
     .btn-start-event:hover {
@@ -98,7 +122,7 @@
       align-items: center;
     }
 
-    /* KARTU DENGAN TRANSISI SANGAT HALUS & MEMUKAU */
+    /* KARTU NAMA DENGAN TRANSISI HALUS */
     .display-card {
       position: relative;
       z-index: 10;
@@ -111,13 +135,13 @@
       border-radius: 28px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
       
-      /* Animasi Kemunculan Lembut */
+      /* Animasi Kemunculan Sangat Halus */
       opacity: 0;
-      transform: translateY(50px) scale(0.90);
-      filter: blur(10px);
-      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(40px) scale(0.92);
+      filter: blur(12px);
+      transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform, filter;
     }
 
@@ -212,10 +236,10 @@
 
   <!-- LAYAR OPENING DEPAN -->
   <div class="start-screen" id="startScreen">
-    <!-- Logo Wahdah Islamiyah di Bagan Paling Atas -->
-    <img class="logo-wahdah" src="logo MWD.png
-
-">
+    <!-- LOGO MWD DALAM WADAH KARTU -->
+    <div class="logo-card">
+      <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
+    </div>
     
     <h1>TASYAKURAN DIROSA IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 DIMULAI</button>
@@ -257,40 +281,17 @@
     let currentIndex = 0;
     let isTransitioning = false;
 
-    // FUNGSI SUARA PEMANGGIL (SUARA WANITA INDONESIA HALUS)
-    function speakParticipantInfo(item) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
-
-        // Format teks pengumuman
-        const textToSpeak = `Kelompok ${item.liqo}. Mudarissah, Ustazdah ${item.mudarissah}. Peserta, ${item.peserta}.`;
-        
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.lang = 'id-ID';
-        utterance.rate = 0.88; // Tempo sedikit diperlambat agar lebih tenang & lugas
-        utterance.pitch = 1.05; // Nada suara dibuat hangat & ramah
-
-        // Mencari profil suara wanita Bahasa Indonesia
-        const voices = window.speechSynthesis.getVoices();
-        const indonesianVoice = voices.find(voice => voice.lang.includes('id') || voice.lang.includes('ID'));
-        if (indonesianVoice) {
-          utterance.voice = indonesianVoice;
-        }
-
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
     function startEvent() {
+      // 1. Hilangkan layar opening
       startScreen.classList.add('fade-out');
+
+      // 2. Tahan panggung kosong selama 3 detik (3000 ms), baru munculkan kartu peserta
       setTimeout(() => {
         participantCard.classList.add('show');
-        speakParticipantInfo(participants[currentIndex]);
-      }, 500);
+      }, 3000);
     }
 
     function showOpening() {
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       participantCard.classList.remove('show');
       setTimeout(() => {
         startScreen.classList.remove('fade-out');
@@ -301,24 +302,15 @@
       if (isTransitioning) return;
       isTransitioning = true;
 
-      // Hentikan suara sebelumnya saat berpindah
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-
-      // Sembunyikan kartu dulu
       participantCard.classList.remove('show');
 
       setTimeout(() => {
-        // Update data
         document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
         document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
         document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
         document.getElementById('photoDisplay').src = participants[currentIndex].photo;
 
-        // Munculkan kartu dengan transisi halus
         participantCard.classList.add('show');
-        
-        // Panggil nama dengan suara wanita
-        speakParticipantInfo(participants[currentIndex]);
 
         setTimeout(() => {
           isTransitioning = false;
@@ -334,13 +326,6 @@
     function prevParticipant() { 
       currentIndex = (currentIndex - 1 + participants.length) % participants.length; 
       updateDisplay(); 
-    }
-
-    // Memastikan daftar suara terisi di beberapa browser (Chrome/Edge)
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.getVoices();
-      };
     }
 
     // Inisialisasi awal
