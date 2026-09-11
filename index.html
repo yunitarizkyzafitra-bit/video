@@ -29,26 +29,19 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING DEPAN DENGAN BACKGROUND EMAS */
+    /* 1. LAYAR OPENING UTAMA (TETAP ADA) */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 3000;
-      
-      /* Menggunakan background gambar emas */
-      background-image: url('./—Pngtree—abstract gradient golden background border_2499793.jpg');
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-
+      background: radial-gradient(circle, #08291b 0%, #020d08 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
-      padding: 20px;
-      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+      gap: 25px;
+      transition: opacity 1s ease, visibility 1s ease;
     }
 
     .start-screen.fade-out {
@@ -57,43 +50,31 @@
       pointer-events: none;
     }
 
-    /* LOGO WAHDAH PALING ATAS */
-    .logo-wahdah {
-      width: 130px;
-      height: auto;
-      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
-    }
-
     .start-screen h1 {
       font-family: 'Cinzel', serif;
-      color: #3b2800; /* Warna teks gelap kontras dengan background emas */
-      font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.6);
+      color: var(--gold-light);
+      font-size: 2.5rem;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
       text-align: center;
-      max-width: 900px;
-      line-height: 1.3;
     }
 
     .btn-start-event {
-      margin-top: 15px;
-      background: linear-gradient(135deg, #08291b, #020d08);
-      border: 2px solid var(--gold-main);
-      color: var(--gold-light);
+      background: linear-gradient(135deg, #d4af37, #997413);
+      border: 2px solid #fff;
+      color: #041B12;
       padding: 18px 45px;
       font-size: 1.25rem;
       font-weight: 700;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .btn-start-event:hover {
       transform: scale(1.06);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-      background: linear-gradient(135deg, #0d3d29, #051a11);
+      box-shadow: 0 0 45px rgba(212, 175, 55, 1);
     }
 
     /* 2. PANGGUNG DISPLAY UTAMA */
@@ -108,7 +89,7 @@
       align-items: center;
     }
 
-    /* KARTU DENGAN TRANSISI HALUS */
+    /* KARTU NAMA PESERTA DENGAN TRANSISI HALUS */
     .display-card {
       position: relative;
       z-index: 10;
@@ -216,15 +197,10 @@
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN -->
+  <!-- LAYAR OPENING DEPAN (TETAP ADA) -->
   <div class="start-screen" id="startScreen">
-    <!-- Logo Wahdah Islamiyah -->
-    <img class="logo-wahdah" src="https://upload.wikimedia.org/wikipedia/commons/2/28/Logo_Wahdah_Islamiyah.png" alt="Logo Wahdah Islamiyah">
-    
-    <!-- Judul Acara -->
-    <h1>TASYAKURAN DIROSA ANGKATAN IX</h1>
-    
-    <button class="btn-start-event" onclick="startEvent()">✨ MASUK KE PANGGUNG</button>
+    <h1>TASYAKURAN DIROSA IX</h1>
+    <button class="btn-start-event" onclick="startEvent()">🎬 MASUK KE PANGGUNG</button>
   </div>
 
   <!-- PANGGUNG DISPLAY UTAMA -->
@@ -241,7 +217,7 @@
       </div>
     </div>
 
-    <!-- TOMBOL KONTROL -->
+    <!-- KONTROL NAVIGASI -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="showOpening()">🏠 Kembali ke Opening</button>
@@ -254,23 +230,23 @@
     const participantCard = document.getElementById('participantCard');
 
     function startEvent() {
-      // Sembunyikan layar pembuka
+      // Menghilangkan Layar Pembuka secara mulus
       startScreen.classList.add('fade-out');
 
-      // Tampilkan kartu panggung secara halus setelah opening hilang
+      // Memunculkan kartu panggung secara halus
       setTimeout(() => {
         participantCard.classList.add('show');
-      }, 500);
+      }, 400);
     }
 
     function showOpening() {
       // Sembunyikan kartu panggung
       participantCard.classList.remove('show');
 
-      // Munculkan kembali layar opening
+      // Tampilkan kembali layar pembuka depan
       setTimeout(() => {
         startScreen.classList.remove('fade-out');
-      }, 500);
+      }, 400);
     }
 
     // Data Peserta
@@ -313,7 +289,7 @@
       updateDisplay(); 
     }
 
-    // Inisialisasi data awal
+    // Inisialisasi awal data peserta
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
