@@ -82,7 +82,7 @@
     }
 
     /* ----------------------------------------------------
-       2. OVERLAY VIDEO OPENING (TRANSISI SMOOTH/CINEMATIC)
+       2. OVERLAY VIDEO OPENING (TRANSISI HALUS / CINEMATIC)
     ---------------------------------------------------- */
     .intro-overlay {
       position: fixed;
@@ -302,9 +302,12 @@
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX (DIRECT GITHUB RAW LINK) -->
+  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX (video_1.mp4) -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto" crossorigin="anonymous">
+      <!-- 1. Jalur Utama: Memanggil file video_1.mp4 di folder yang sama -->
+      <source src="./video_1.mp4" type="video/mp4">
+      <!-- 2. Jalur Cadangan Direct Raw Link GitHub -->
       <source src="https://raw.githubusercontent.com/yunitarizkyzafitra-bit/video/main/video_1.mp4" type="video/mp4">
       Browser kamu tidak mendukung pemutaran video ini.
     </video>
@@ -387,7 +390,7 @@
       introVideo.play();
     }
 
-    // Data Peserta Contoh
+    // Data Contoh Pemanggilan Peserta
     const participants = [
       { 
         liqo: "AL-ALAQ 9.PB4",
