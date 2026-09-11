@@ -97,7 +97,6 @@
       align-items: center;
       opacity: 1;
       visibility: visible;
-      /* Transisi Halus 1.2 Detik */
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -113,7 +112,6 @@
       object-fit: cover;
     }
 
-    /* Tombol Lewati Video untuk Operator */
     .btn-skip {
       position: absolute;
       bottom: 35px;
@@ -154,7 +152,6 @@
       align-items: center;
     }
 
-    /* Kartu nama khusus menutup area tengah panggung saja */
     .display-card {
       position: relative;
       z-index: 10;
@@ -180,7 +177,6 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    /* Kelas animasi saat kartu dipanggil/berganti */
     .display-card.show {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -268,7 +264,6 @@
       margin-top: 3px;
     }
 
-    /* Controls Navigasi Panggung */
     .controls-container {
       position: absolute;
       bottom: 25px;
@@ -301,17 +296,16 @@
 </head>
 <body>
 
-  <!-- 1. SCREEN INITIAL START (MEMBUKA IZIN AUTOPLAY BROWSER) -->
+  <!-- 1. INITIAL START SCREEN -->
   <div class="start-screen" id="startScreen">
     <h1>TASYAKURAN DIROSA IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX -->
+  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX (DIRECT GITHUB RAW LINK) -->
   <div class="intro-overlay" id="introOverlay">
-    <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <!-- File video opening disimpan dengan nama video_1.mp4 -->
-      <source src="./video_1.mp4" type="video/mp4">
+    <video class="intro-video" id="introVideo" playsinline preload="auto" crossorigin="anonymous">
+      <source src="https://raw.githubusercontent.com/yunitarizkyzafitra-bit/video/main/video_1.mp4" type="video/mp4">
       Browser kamu tidak mendukung pemutaran video ini.
     </video>
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
@@ -349,7 +343,7 @@
       </div>
     </div>
 
-    <!-- Tombol Navigasi Kontrol Operator -->
+    <!-- Tombol Kontrol Navigasi Operator -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Opening</button>
@@ -364,35 +358,28 @@
     const introVideo = document.getElementById('introVideo');
     const participantCard = document.getElementById('participantCard');
 
-    // 1. Eksekusi Mulai Acara (Bypass Kebijakan Autoplay Browser)
     function startEvent() {
       startScreen.classList.add('fade-out');
       
-      // Putar Video Opening
       introVideo.currentTime = 0;
       introVideo.play().catch(function(error) {
         console.log("Autoplay blocked/failed:", error);
       });
     }
 
-    // 2. Transisi Halus Otomatis Saat Video Selesai
     introVideo.addEventListener('ended', function() {
       finishIntro();
     });
 
-    // 3. Selesaikan Opening & Tampilkan Kartu Panggung
     function finishIntro() {
-      // Transisi Fade Out Video Overlay (1.2 detik)
       introOverlay.classList.add('hidden');
       setTimeout(() => {
         introVideo.pause();
       }, 1200);
 
-      // Tampilkan Kartu Nama Peserta Pertama
       participantCard.classList.add('show');
     }
 
-    // 4. Fitur Putar Ulang Video Opening
     function replayIntro() {
       participantCard.classList.remove('show');
       introOverlay.classList.remove('hidden');
@@ -400,7 +387,7 @@
       introVideo.play();
     }
 
-    // Data Peserta (Sampel Data Pemanggilan)
+    // Data Peserta Contoh
     const participants = [
       { 
         liqo: "AL-ALAQ 9.PB4",
@@ -424,7 +411,6 @@
 
     let currentIndex = 0;
 
-    // Updates Tampilan Data dengan Animasi Smooth
     function updateDisplay() {
       participantCard.classList.remove('show');
 
@@ -448,7 +434,6 @@
       updateDisplay();
     }
 
-    // Inisialisasi awal data
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
