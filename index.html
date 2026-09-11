@@ -29,13 +29,13 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING UTAMA: HIJAU ISLAMI & KEMENANGAN KEEMASAN */
+    /* 1. LAYAR OPENING UTAMA: BACKGROUND HIJAU ISLAMI & ORNAMEN KEEMASAN MEWAH */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 3000;
-      background: radial-gradient(circle at center, #063d26 0%, #032114 55%, #010c07 100%);
+      background: radial-gradient(circle at center, #07472c 0%, #032114 50%, #010c07 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,37 +45,37 @@
       overflow: hidden;
     }
 
-    /* Ornamen Cahaya Islami & Pola Keemasan Megah */
+    /* Ornamen Cahaya Belakang (Lampu Layar) & Pola Geometris Islami Megah */
     .start-screen::before {
       content: '';
       position: absolute;
-      width: 160vw;
-      height: 160vh;
+      width: 180vw;
+      height: 180vh;
       background: 
-        radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(4, 30, 18, 0) 70%),
-        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.05) 0px, rgba(212, 175, 55, 0.05) 2px, transparent 2px, transparent 35px),
-        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.05) 0px, rgba(212, 175, 55, 0.05) 2px, transparent 2px, transparent 35px);
+        radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(3, 33, 20, 0) 65%),
+        linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, transparent 50%, rgba(212, 175, 55, 0.08) 100%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 30px);
       animation: ambientGlow 10s ease-in-out infinite alternate;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Bingkai Geometris Keemasan Mewah */
+    /* Bingkai Ornamen Kubah/Aksen Islami Ganda */
     .start-screen::after {
       content: '';
       position: absolute;
       width: 88vw;
-      height: 88vh;
-      border: 3px solid rgba(212, 175, 55, 0.45);
+      height: 86vh;
+      border: 3px solid rgba(212, 175, 55, 0.5);
       border-radius: 35px;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.25), inset 0 0 45px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 60px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.3);
       z-index: 1;
       pointer-events: none;
     }
 
     @keyframes ambientGlow {
-      0% { transform: scale(1); opacity: 0.85; }
-      100% { transform: scale(1.07); opacity: 1; }
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.08); opacity: 1; }
     }
 
     .start-screen > * {
@@ -83,38 +83,32 @@
       z-index: 2;
     }
 
-    /* KARTU LOGO DENGAN ANIMASI BERDENYUT HALUS */
+    /* LOGO DIANGKAT KE ATAS & BERDENYUT HALUS */
     .logo-card {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.07);
       border: 2px solid var(--gold-main);
       border-radius: 24px;
-      padding: 22px 38px;
+      padding: 20px 36px;
       backdrop-filter: blur(12px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 35px rgba(212, 175, 55, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: -5px;
+      margin-bottom: -10px;
       animation: logoPulse 3s ease-in-out infinite;
-      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
-    }
-
-    .logo-card:hover {
-      transform: scale(1.08);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.7);
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     @keyframes logoPulse {
-      0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.3); }
-      50% { transform: scale(1.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.7); }
-      100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.3); }
+      0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4); }
+      50% { transform: scale(1.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 45px rgba(212, 175, 55, 0.7); }
+      100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4); }
     }
 
     .logo-wahdah {
       width: 150px;
       height: auto;
-      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
-      transition: transform 0.5s ease;
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
     }
 
     .start-screen h1 {
@@ -122,14 +116,8 @@
       color: var(--gold-light);
       font-size: 2.6rem;
       letter-spacing: 5px;
-      text-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+      text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
       text-align: center;
-      animation: textGlow 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes textGlow {
-      0% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-      100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 10px rgba(255, 255, 255, 0.5); }
     }
 
     .btn-start-event {
@@ -234,14 +222,13 @@
     .photo-container img {
       width: 100%; 
       height: 100%;
-      object-fit: cover; /* Presisi tinggi mengisi bingkai tanpa distorsi */
+      object-fit: cover;
       object-position: center top;
       background-color: #06150e;
       opacity: 1;
       transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
     }
 
-    /* Efek transisi pudar khusus pergantian gambar foto */
     .photo-container img.fade-anim {
       opacity: 0;
       transform: scale(0.95);
@@ -270,7 +257,7 @@
 
     .controls-container {
       position: absolute; bottom: 25px;
-      display: flex; gap: 15px;
+      display: flex; gap: 12px;
       align-items: center;
     }
 
@@ -278,8 +265,8 @@
       background: rgba(12, 30, 22, 0.9);
       border: 1.5px solid var(--gold-main);
       color: #fff;
-      padding: 10px 28px;
-      font-size: 0.9rem; font-weight: 600;
+      padding: 10px 22px;
+      font-size: 0.85rem; font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -290,18 +277,24 @@
       color: #041B12;
     }
 
+    .btn-auto {
+      background: linear-gradient(135deg, #d4af37, #997413);
+      color: #041B12;
+      font-weight: 700;
+    }
+
     .counter-indicator {
       color: var(--gold-light);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 1px;
-      margin-left: 10px;
+      margin-left: 5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN: HIJAU ISLAMI & KEMENANGAN KEEMASAN -->
+  <!-- LAYAR OPENING DEPAN: HIJAU ISLAMI & ORNAMEN KEEMASAN MEWAH -->
   <div class="start-screen" id="startScreen">
     <div class="logo-card">
       <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
@@ -327,11 +320,12 @@
       </div>
     </div>
 
-    <!-- KONTROL NAVIGASI & INDIKATOR URUTAN LENGKAP -->
+    <!-- KONTROL NAVIGASI & MODE OTOMATIS -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
-      <button class="btn-control" onclick="showOpening()">🏠 Kembali ke Opening</button>
+      <button class="btn-control" onclick="showOpening()">🏠 Opening</button>
       <button class="btn-control" onclick="nextParticipant()">Selanjutnya ›</button>
+      <button class="btn-control btn-auto" id="btnAutoToggle" onclick="toggleAutoPlay()">▶ Play Otomatis</button>
       <span class="counter-indicator" id="counterIndicator">0 / 0</span>
     </div>
   </div>
@@ -356,6 +350,8 @@
     let participants = [];
     let currentIndex = 0;
     let isTransitioning = false;
+    let autoPlayTimer = null;
+    let isAutoPlaying = false;
 
     async function fetchSecureSpreadsheetData() {
       try {
@@ -376,8 +372,16 @@
 
         const rawData = await response.json();
 
-        // Memastikan SELURUH data peserta terpanggil utuh tanpa ada yang terlewat
         if (Array.isArray(rawData) && rawData.length > 0) {
+          // MENGURUTKAN PESERTA BERDASARKAN KELOMPOK / LIQO SECARA BERURUTAN AGAR TIDAK TERPISAH-PISAH
+          rawData.sort((a, b) => {
+            const liqoA = String(a.liqo || '').trim().toLowerCase();
+            const liqoB = String(b.liqo || '').trim().toLowerCase();
+            if (liqoA < liqoB) return -1;
+            if (liqoA > liqoB) return 1;
+            return 0;
+          });
+
           participants = rawData.map(item => ({
             liqo: sanitizeInput(item.liqo || '-'),
             mudarissah: sanitizeInput(item.mudarissah || '-'),
@@ -432,6 +436,7 @@
     }
 
     function showOpening() {
+      stopAutoPlay();
       participantCard.classList.remove('show');
       setTimeout(() => {
         startScreen.classList.remove('fade-out');
@@ -465,13 +470,13 @@
     function updateCounter() {
       const counterEl = document.getElementById('counterIndicator');
       if (participants.length > 0) {
-        counterEl.innerText = `${currentIndex + 1} dari ${participants.length}`;
+        counterEl.innerText = `${currentIndex + 1} / ${participants.length}`;
       } else {
         counterEl.innerText = `0 / 0`;
       }
     }
 
-    // TRANSISI SINKRON HALUS: Kartu utama dan foto memudar bersamaan selaras saat dipanggil
+    // TRANSISI SINKRON HALUS ANTAR SLIDE
     function updateDisplay() {
       if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
@@ -501,7 +506,36 @@
       updateDisplay(); 
     }
 
-    // Navigasi keyboard cepat (Tombol Panah Kanan / Kiri)
+    // FITUR PEMANGGILAN OTOMATIS BERGANTI SLIDE
+    function toggleAutoPlay() {
+      const btn = document.getElementById('btnAutoToggle');
+      if (!isAutoPlaying) {
+        isAutoPlaying = true;
+        btn.innerText = "⏸ Jeda Otomatis";
+        btn.style.background = "#b8860b";
+        // Ganti slide otomatis setiap 5 detik (waktu ideal per peserta di panggung)
+        autoPlayTimer = setInterval(() => {
+          nextParticipant();
+        }, 5000);
+      } else {
+        stopAutoPlay();
+      }
+    }
+
+    function stopAutoPlay() {
+      isAutoPlaying = false;
+      const btn = document.getElementById('btnAutoToggle');
+      if (btn) {
+        btn.innerText = "▶ Play Otomatis";
+        btn.style.background = "linear-gradient(135deg, #d4af37, #997413)";
+      }
+      if (autoPlayTimer) {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = null;
+      }
+    }
+
+    // Navigasi Keyboard Cepat (Panah Kanan / Kiri)
     document.addEventListener('keydown', event => {
       if (event.key === 'ArrowRight') {
         nextParticipant();
