@@ -45,7 +45,6 @@
       overflow: hidden;
     }
 
-    /* Ornamen Cahaya Belakang (Lampu Layar) & Pola Geometris Islami Megah */
     .start-screen::before {
       content: '';
       position: absolute;
@@ -60,7 +59,6 @@
       pointer-events: none;
     }
 
-    /* Bingkai Ornamen Kubah/Aksen Islami Ganda */
     .start-screen::after {
       content: '';
       position: absolute;
@@ -83,7 +81,6 @@
       z-index: 2;
     }
 
-    /* LOGO DIANGKAT KE ATAS & BERDENYUT HALUS */
     .logo-card {
       background: rgba(255, 255, 255, 0.07);
       border: 2px solid var(--gold-main);
@@ -205,7 +202,6 @@
       gap: 35px;
     }
 
-    /* KONTAINER BINGKAI FOTO PRESISI DENGAN TRANSISI HALUS */
     .photo-container {
       flex-shrink: 0;
       width: 170px; height: 220px;
@@ -313,7 +309,8 @@
           <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto Peserta">
         </div>
         <div class="info-container">
-          <div class="info-box"><div class="label">Kelompok / Liqo</div><div class="value-liqo" id="liqoDisplay">Menghubungkan Server...</div></div>
+          <!-- LABEL BERUBAH MENJADI 'LIQO' TANPA KATA 'KELOMPOK' -->
+          <div class="info-box"><div class="label">Liqo</div><div class="value-liqo" id="liqoDisplay">Menghubungkan Server...</div></div>
           <div class="info-box"><div class="label">Mudarissah</div><div class="value-mudarissah" id="mudarissahDisplay">Menghubungkan Server...</div></div>
           <div class="info-box"><div class="label">Nama Peserta</div><div class="value-peserta" id="pesertaDisplay">Memuat Data Aman...</div></div>
         </div>
@@ -373,7 +370,7 @@
         const rawData = await response.json();
 
         if (Array.isArray(rawData) && rawData.length > 0) {
-          // MENGURUTKAN PESERTA BERDASARKAN KELOMPOK / LIQO SECARA BERURUTAN AGAR TIDAK TERPISAH-PISAH
+          // MENGURUTKAN PESERTA BERDASARKAN LIQO SECARA BERURUTAN TANPA TERPISAH-PISAH
           rawData.sort((a, b) => {
             const liqoA = String(a.liqo || '').trim().toLowerCase();
             const liqoB = String(b.liqo || '').trim().toLowerCase();
@@ -476,7 +473,6 @@
       }
     }
 
-    // TRANSISI SINKRON HALUS ANTAR SLIDE
     function updateDisplay() {
       if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
@@ -506,14 +502,12 @@
       updateDisplay(); 
     }
 
-    // FITUR PEMANGGILAN OTOMATIS BERGANTI SLIDE
     function toggleAutoPlay() {
       const btn = document.getElementById('btnAutoToggle');
       if (!isAutoPlaying) {
         isAutoPlaying = true;
         btn.innerText = "⏸ Jeda Otomatis";
         btn.style.background = "#b8860b";
-        // Ganti slide otomatis setiap 5 detik (waktu ideal per peserta di panggung)
         autoPlayTimer = setInterval(() => {
           nextParticipant();
         }, 5000);
@@ -535,7 +529,6 @@
       }
     }
 
-    // Navigasi Keyboard Cepat (Panah Kanan / Kiri)
     document.addEventListener('keydown', event => {
       if (event.key === 'ArrowRight') {
         nextParticipant();
@@ -544,7 +537,6 @@
       }
     });
 
-    // Inisialisasi awal sinkronisasi data keseluruhan peserta
     fetchSecureSpreadsheetData();
   </script>
 
