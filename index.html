@@ -61,8 +61,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      
-      /* Transisi animasi logo */
       transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
     }
 
@@ -71,7 +69,6 @@
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.6);
     }
 
-    /* LOGO MEMBESAR MENYESUAIKAN WADAH KARTU */
     .logo-wahdah {
       width: 160px;
       height: auto;
@@ -122,7 +119,6 @@
       align-items: center;
     }
 
-    /* KARTU NAMA DENGAN TRANSISI HALUS */
     .display-card {
       position: relative;
       z-index: 10;
@@ -135,7 +131,6 @@
       border-radius: 28px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
       
-      /* Animasi Kemunculan Sangat Halus */
       opacity: 0;
       transform: translateY(40px) scale(0.92);
       filter: blur(12px);
@@ -236,7 +231,6 @@
 
   <!-- LAYAR OPENING DEPAN -->
   <div class="start-screen" id="startScreen">
-    <!-- LOGO MWD DALAM WADAH KARTU -->
     <div class="logo-card">
       <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
     </div>
@@ -252,9 +246,9 @@
       <div class="card-body">
         <div class="photo-container"><img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto"></div>
         <div class="info-container">
-          <div class="info-box"><div class="label">Kelompok / Liqo</div><div class="value-liqo" id="liqoDisplay">-</div></div>
-          <div class="info-box"><div class="label">Mudarissah</div><div class="value-mudarissah" id="mudarissahDisplay">-</div></div>
-          <div class="info-box"><div class="label">Nama Peserta</div><div class="value-peserta" id="pesertaDisplay">Siap Dipanggil...</div></div>
+          <div class="info-box"><div class="label">Kelompok / Liqo</div><div class="value-liqo" id="liqoDisplay">Memuat data...</div></div>
+          <div class="info-box"><div class="label">Mudarissah</div><div class="value-mudarissah" id="mudarissahDisplay">Memuat data...</div></div>
+          <div class="info-box"><div class="label">Nama Peserta</div><div class="value-peserta" id="pesertaDisplay">Menghubungkan Spreadsheet...</div></div>
         </div>
       </div>
     </div>
@@ -271,21 +265,43 @@
     const startScreen = document.getElementById('startScreen');
     const participantCard = document.getElementById('participantCard');
 
-    // Data Peserta
-    const participants = [
-      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Riska Rahayu, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
-      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Anisya Ismail, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
-      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Endang Sudariyaningsih", photo: "https://via.placeholder.com/170x220" }
-    ];
+    // Link CSV otomatis dari spreadsheet Anda
+    const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/18vOawlsXWX_PXjKoZQoPad2jj0klPVcGbXuxtF6Uh1k/export?format=csv&gid=886014663';
 
+    let participants = [];
     let currentIndex = 0;
     let isTransitioning = false;
 
-    function startEvent() {
-      // 1. Hilangkan layar opening
-      startScreen.classList.add('fade-out');
+    // Fungsi otomatis menarik data dari Google Sheets (format CSV)
+    async function fetchSpreadsheetData() {
+      try {
+        const response = await fetch(sheetCsvUrl);
+        const data = await response.text();
+        
+        const rows = data.split('\n').slice(1); // Lewati header baris pertama
+        participants = rows.map(row => {
+          const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+          return {
+            liqo: cols[0]?.replace(/"/g, '').trim() || '-',
+            mudarissah: cols[1]?.replace(/"/g, '').trim() || '-',
+            peserta: cols[2]?.replace(/"/g, '').trim() || '-',
+            photo: cols[3]?.replace(/"/g, '').trim() || 'https://via.placeholder.com/170x220'
+          };
+        }).filter(p => p.peserta !== '' && p.peserta !== '-');
 
-      // 2. Tahan panggung kosong selama 3 detik (3000 ms), baru munculkan kartu peserta
+        if (participants.length > 0) {
+          updateCardContent();
+        } else {
+          document.getElementById('pesertaDisplay').innerText = 'Data Kosong!';
+        }
+      } catch (error) {
+        console.error('Gagal memuat data Spreadsheet:', error);
+        document.getElementById('pesertaDisplay').innerText = 'Gagal memuat koneksi!';
+      }
+    }
+
+    function startEvent() {
+      startScreen.classList.add('fade-out');
       setTimeout(() => {
         participantCard.classList.add('show');
       }, 3000);
@@ -298,18 +314,22 @@
       }, 500);
     }
 
+    function updateCardContent() {
+      if (participants.length === 0) return;
+      document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
+      document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
+      document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
+      document.getElementById('photoDisplay').src = participants[currentIndex].photo;
+    }
+
     function updateDisplay() {
-      if (isTransitioning) return;
+      if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
 
       participantCard.classList.remove('show');
 
       setTimeout(() => {
-        document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
-        document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
-        document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
-        document.getElementById('photoDisplay').src = participants[currentIndex].photo;
-
+        updateCardContent();
         participantCard.classList.add('show');
 
         setTimeout(() => {
@@ -319,19 +339,19 @@
     }
 
     function nextParticipant() { 
+      if (participants.length === 0) return;
       currentIndex = (currentIndex + 1) % participants.length; 
       updateDisplay(); 
     }
 
     function prevParticipant() { 
+      if (participants.length === 0) return;
       currentIndex = (currentIndex - 1 + participants.length) % participants.length; 
       updateDisplay(); 
     }
 
-    // Inisialisasi awal
-    document.getElementById('liqoDisplay').innerText = participants[0].liqo;
-    document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
-    document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
+    // Jalankan pengambilan data otomatis saat file HTML dibuka
+    fetchSpreadsheetData();
   </script>
 
 </body>
