@@ -29,63 +29,94 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING UTAMA */
+    /* 1. LAYAR OPENING UTAMA DENGAN ORNAMEN & LAMPU LATAR ISLAMI MEGAH */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 3000;
-      background: radial-gradient(circle, #08291b 0%, #020d08 100%);
+      background: radial-gradient(circle at center, #0d3826 0%, #04140d 60%, #010805 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 25px;
+      gap: 20px;
       transition: opacity 1.2s ease, visibility 1.2s ease;
+      overflow: hidden;
     }
 
-    .start-screen.fade-out {
-      opacity: 0;
-      visibility: hidden;
+    /* Efek Cahaya Lampu Latar & Ornamen Geometris Islami Megah di Background Opening */
+    .start-screen::before {
+      content: '';
+      position: absolute;
+      width: 150vw;
+      height: 150vh;
+      background: 
+        radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        linear-gradient(45deg, rgba(13, 56, 38, 0.4) 0%, transparent 50%),
+        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(212, 175, 55, 0.03) 40px, rgba(212, 175, 55, 0.03) 80px);
+      animation: ambientGlow 10s ease-in-out infinite alternate;
+      z-index: 1;
       pointer-events: none;
     }
 
-    /* WADAH KARTU UNTUK LOGO MWD */
+    /* Aksen Kubah / Lengkungan Islami Abstrak di Background */
+    .start-screen::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      width: 600px;
+      height: 600px;
+      border: 2px dashed rgba(212, 175, 55, 0.2);
+      border-radius: 50%;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.1), inset 0 0 50px rgba(212, 175, 55, 0.1);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes ambientGlow {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .start-screen > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* WADAH KARTU LOGO DIANGKAT LEBIH KE ATAS */
     .logo-card {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
       border: 2px solid var(--gold-main);
       border-radius: 24px;
-      padding: 20px 35px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+      padding: 18px 32px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.4);
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: -5px; /* Menaikan posisi logo secara visual */
       transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
     }
 
     .logo-card:hover {
       transform: scale(1.08);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.6);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.7);
     }
 
     .logo-wahdah {
-      width: 160px;
+      width: 150px;
       height: auto;
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
       transition: transform 0.5s ease;
-    }
-
-    .logo-card:hover .logo-wahdah {
-      transform: scale(1.05);
     }
 
     .start-screen h1 {
       font-family: 'Cinzel', serif;
       color: var(--gold-light);
-      font-size: 2.5rem;
-      letter-spacing: 4px;
-      text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      font-size: 2.4rem;
+      letter-spacing: 5px;
+      text-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
       text-align: center;
     }
 
@@ -93,18 +124,24 @@
       background: linear-gradient(135deg, #d4af37, #997413);
       border: 2px solid #fff;
       color: #041B12;
-      padding: 18px 45px;
-      font-size: 1.25rem;
+      padding: 16px 42px;
+      font-size: 1.2rem;
       font-weight: 700;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.8);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .btn-start-event:hover {
       transform: scale(1.06);
-      box-shadow: 0 0 45px rgba(212, 175, 55, 1);
+      box-shadow: 0 0 50px rgba(212, 175, 55, 1);
+    }
+
+    .start-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     /* 2. PANGGUNG DISPLAY UTAMA */
@@ -175,20 +212,21 @@
       border-radius: 18px;
       border: 3px solid var(--gold-main);
       overflow: hidden;
-      background: #06150e; /* Background gelap elegan agar pas dengan foto rasio berbeda */
+      background: #06150e;
       display: flex;
       justify-content: center;
       align-items: center;
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
     }
 
-    /* PENGATURAN AGAR FOTO SELARAS & TIDAK ADA WAJAH TERPOTONG */
+    /* TRANSISI FOTO TERSINKRON DENGAN KARTU UTAMA */
     .photo-container img {
       width: 100%; 
       height: 100%;
-      object-fit: contain; /* Otomatis mengecilkan/menyesuaikan ukuran foto agar masuk utuh tanpa terpotong */
+      object-fit: contain; /* Presisi tanpa wajah terpotong dan otomatis mengecil pas di bingkai */
       object-position: center;
       background-color: #06150e;
+      transition: transform 0.8s ease, filter 0.8s ease;
     }
 
     .info-container {
@@ -236,7 +274,7 @@
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN -->
+  <!-- LAYAR OPENING DEPAN DENGAN ORNAMEN ISLAMI & LAMPU LATAR MEGAH -->
   <div class="start-screen" id="startScreen">
     <div class="logo-card">
       <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
@@ -377,17 +415,15 @@
       document.getElementById('photoDisplay').src = participants[currentIndex].photo;
     }
 
-    // TRANSISI SINKRON: Foto dan teks masuk/keluar bersamaan dengan efek blur & slide halus
+    // TRANSISI SINKRON SEMPURNA: Foto ikut memudar dan berganti selaras bersamaan dengan teks
     function updateDisplay() {
       if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
 
-      // Kartu (termasuk teks dan foto di dalamnya) memudar/menghilang bersamaan
       participantCard.classList.remove('show');
 
       setTimeout(() => {
         updateCardContent();
-        // Kartu kembali muncul bersamaan dengan mulus
         participantCard.classList.add('show');
 
         setTimeout(() => {
