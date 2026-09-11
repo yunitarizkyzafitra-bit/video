@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tasyakuran Dirosa Angkatan IX - Display Panggung</title>
   
-  <!-- Font Tipografi Islami & Modern -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap">
 
   <style>
@@ -30,15 +29,11 @@
       background-color: #000;
     }
 
-    /* ----------------------------------------------------
-       1. SCREEN TOMBOL AWAL (IZIN AUTOPLAY BROWSER)
-    ---------------------------------------------------- */
+    /* START SCREEN */
     .start-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       z-index: 3000;
       background: radial-gradient(circle, #08291b 0%, #020d08 100%);
       display: flex;
@@ -81,15 +76,11 @@
       box-shadow: 0 0 45px rgba(212, 175, 55, 1);
     }
 
-    /* ----------------------------------------------------
-       2. OVERLAY VIDEO OPENING
-    ---------------------------------------------------- */
+    /* OVERLAY VIDEO */
     .intro-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       z-index: 2000;
       background: #000;
       display: flex;
@@ -114,8 +105,7 @@
 
     .btn-skip {
       position: absolute;
-      bottom: 35px;
-      right: 35px;
+      bottom: 35px; right: 35px;
       z-index: 2010;
       background: rgba(5, 18, 12, 0.85);
       border: 1.5px solid var(--gold-main);
@@ -126,27 +116,21 @@
       border-radius: 30px;
       cursor: pointer;
       backdrop-filter: blur(10px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
       transition: all 0.3s ease;
     }
 
     .btn-skip:hover {
       background: var(--gold-main);
       color: #041B12;
-      transform: translateY(-2px);
     }
 
-    /* ----------------------------------------------------
-       3. PANGGUNG UTAMA & KARTU NAMA PESERTA
-    ---------------------------------------------------- */
+    /* PANGGUNG DISPLAY UTAMA */
     .stage-container {
       position: relative;
-      width: 100vw;
-      height: 100vh;
+      width: 100vw; height: 100vh;
       background-image: url('./background.jpg');
       background-position: center;
       background-size: cover;
-      background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -155,23 +139,14 @@
     .display-card {
       position: relative;
       z-index: 10;
-      width: 68vw;
-      max-width: 950px;
-      min-height: 480px;
+      width: 68vw; max-width: 950px; min-height: 480px;
       padding: 35px 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 20px;
+      display: flex; flex-direction: column; justify-content: center; gap: 20px;
       background: var(--bg-dark-green); 
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border: 3px solid var(--gold-main);
       border-radius: 28px;
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.85),
-        0 0 35px rgba(212, 175, 55, 0.4),
-        inset 0 0 20px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
       opacity: 0;
       transform: translateY(20px) scale(0.96);
       transition: opacity 0.8s ease, transform 0.8s ease;
@@ -186,11 +161,8 @@
       align-self: center;
       padding: 10px 40px;
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
       border: 1.5px solid rgba(212, 175, 55, 0.6);
       border-radius: 35px;
-      margin-bottom: 5px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     .glass-header h2 {
@@ -199,7 +171,6 @@
       letter-spacing: 5px;
       color: var(--gold-light);
       text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .card-body {
@@ -210,27 +181,21 @@
 
     .photo-container {
       flex-shrink: 0;
-      width: 170px;
-      height: 220px;
+      width: 170px; height: 220px;
       border-radius: 18px;
       border: 3px solid var(--gold-main);
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
       background: #0d231a;
     }
 
     .photo-container img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
     }
 
     .info-container {
       flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      text-align: left;
+      display: flex; flex-direction: column; gap: 10px;
     }
 
     .info-box .label {
@@ -239,37 +204,19 @@
       letter-spacing: 2px;
       color: var(--gold-main);
       font-weight: 600;
-      margin-bottom: 2px;
     }
 
-    .info-box .value-liqo {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #e0e0e0;
-    }
-
-    .info-box .value-mudarissah {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--gold-light);
-    }
-
+    .info-box .value-liqo { font-size: 1.25rem; font-weight: 600; color: #e0e0e0; }
+    .info-box .value-mudarissah { font-size: 1.3rem; font-weight: 600; color: var(--gold-light); }
     .info-box .value-peserta {
       font-family: 'Cinzel', serif;
-      font-size: 2.6rem;
-      font-weight: 800;
-      color: #ffffff;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 18px rgba(255, 215, 0, 0.4);
-      line-height: 1.15;
-      margin-top: 3px;
+      font-size: 2.6rem; font-weight: 800; color: #ffffff;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
     }
 
     .controls-container {
-      position: absolute;
-      bottom: 25px;
-      z-index: 10;
-      display: flex;
-      gap: 15px;
+      position: absolute; bottom: 25px;
+      display: flex; gap: 15px;
     }
 
     .btn-control {
@@ -277,83 +224,48 @@
       border: 1.5px solid var(--gold-main);
       color: #fff;
       padding: 10px 28px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.9rem; font-weight: 600;
       border-radius: 30px;
       cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .btn-control:hover {
-      background: var(--gold-main);
-      color: #0d231a;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
-      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. INITIAL START SCREEN -->
+  <!-- SCREEN AWAL -->
   <div class="start-screen" id="startScreen">
     <h1>TASYAKURAN DIROSA IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- 2. OVERLAY VIDEO OPENING (MENDUKUNG FORMAT WEBM DENGAN OPSI FALLBACK) -->
+  <!-- OVERLAY VIDEO -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <!-- Menerima file format .webm -->
-      <source src="video_1.webm" type="video/webm">
-      <!-- Menerima file format .mp4 sebagai cadangan -->
       <source src="video_1.mp4" type="video/mp4">
-      Browser kamu tidak mendukung pemutaran video ini.
+      <source src="video_1.webm" type="video/webm">
     </video>
-
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
 
-  <!-- 3. TAMPILAN PANGGUNG DISPLAY UTAMA -->
+  <!-- DISPLAY UTAMA -->
   <div class="stage-container">
-
     <div class="display-card" id="participantCard">
-      <div class="glass-header">
-        <h2>Tasyakuran Dirosa</h2>
-      </div>
-
+      <div class="glass-header"><h2>Tasyakuran Dirosa</h2></div>
       <div class="card-body">
-        <div class="photo-container">
-          <img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto Peserta">
-        </div>
-
+        <div class="photo-container"><img id="photoDisplay" src="https://via.placeholder.com/170x220" alt="Foto"></div>
         <div class="info-container">
-          <div class="info-box">
-            <div class="label">Kelompok / Liqo</div>
-            <div class="value-liqo" id="liqoDisplay">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="label">Mudarissah</div>
-            <div class="value-mudarissah" id="mudarissahDisplay">-</div>
-          </div>
-
-          <div class="info-box">
-            <div class="label">Nama Peserta</div>
-            <div class="value-peserta" id="pesertaDisplay">Siap Dipanggil...</div>
-          </div>
+          <div class="info-box"><div class="label">Kelompok / Liqo</div><div class="value-liqo" id="liqoDisplay">-</div></div>
+          <div class="info-box"><div class="label">Mudarissah</div><div class="value-mudarissah" id="mudarissahDisplay">-</div></div>
+          <div class="info-box"><div class="label">Nama Peserta</div><div class="value-peserta" id="pesertaDisplay">Siap Dipanggil...</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Tombol Kontrol Navigasi Operator -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Opening</button>
       <button class="btn-control" onclick="nextParticipant()">Selanjutnya ›</button>
     </div>
-
   </div>
 
   <script>
@@ -364,23 +276,23 @@
 
     function startEvent() {
       startScreen.classList.add('fade-out');
-      
       introVideo.currentTime = 0;
-      introVideo.play().catch(function(error) {
-        console.log("Autoplay ditolak atau video gagal diputar:", error);
-      });
+      
+      const playPromise = introVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Jika ditolak browser, putar secara silent/muted agar tetap jalan
+          introVideo.muted = true;
+          introVideo.play();
+        });
+      }
     }
 
-    introVideo.addEventListener('ended', function() {
-      finishIntro();
-    });
+    introVideo.addEventListener('ended', finishIntro);
 
     function finishIntro() {
       introOverlay.classList.add('hidden');
-      setTimeout(() => {
-        introVideo.pause();
-      }, 1200);
-
+      setTimeout(() => introVideo.pause(), 1000);
       participantCard.classList.add('show');
     }
 
@@ -391,57 +303,31 @@
       introVideo.play();
     }
 
-    // Data Peserta Contoh
     const participants = [
-      { 
-        liqo: "AL-ALAQ 9.PB4",
-        mudarissah: "EPA NURMALA",
-        peserta: "Riska Rahayu, A.md.Kep", 
-        photo: "https://via.placeholder.com/170x220" 
-      },
-      { 
-        liqo: "AL-ALAQ 9.PB4",
-        mudarissah: "EPA NURMALA",
-        peserta: "Anisya Ismail, A.md.Kep", 
-        photo: "https://via.placeholder.com/170x220" 
-      },
-      { 
-        liqo: "AL-ALAQ 9.PB4",
-        mudarissah: "EPA NURMALA",
-        peserta: "Endang Sudariyaningsih", 
-        photo: "https://via.placeholder.com/170x220" 
-      }
+      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Riska Rahayu, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
+      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Anisya Ismail, A.md.Kep", photo: "https://via.placeholder.com/170x220" },
+      { liqo: "AL-ALAQ 9.PB4", mudarissah: "EPA NURMALA", peserta: "Endang Sudariyaningsih", photo: "https://via.placeholder.com/170x220" }
     ];
 
     let currentIndex = 0;
 
     function updateDisplay() {
       participantCard.classList.remove('show');
-
       setTimeout(() => {
         document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
         document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
         document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
         document.getElementById('photoDisplay').src = participants[currentIndex].photo;
-
         participantCard.classList.add('show');
       }, 300);
     }
 
-    function nextParticipant() {
-      currentIndex = (currentIndex + 1) % participants.length;
-      updateDisplay();
-    }
-
-    function prevParticipant() {
-      currentIndex = (currentIndex - 1 + participants.length) % participants.length;
-      updateDisplay();
-    }
+    function nextParticipant() { currentIndex = (currentIndex + 1) % participants.length; updateDisplay(); }
+    function prevParticipant() { currentIndex = (currentIndex - 1 + participants.length) % participants.length; updateDisplay(); }
 
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
   </script>
-
 </body>
 </html>
