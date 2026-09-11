@@ -82,7 +82,7 @@
     }
 
     /* ----------------------------------------------------
-       2. OVERLAY VIDEO OPENING (TRANSISI SMOOTH & HANDAL)
+       2. OVERLAY VIDEO OPENING
     ---------------------------------------------------- */
     .intro-overlay {
       position: fixed;
@@ -110,20 +110,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .video-error-msg {
-      position: absolute;
-      top: 40%;
-      color: #ff6b6b;
-      font-size: 1.1rem;
-      text-align: center;
-      background: rgba(0,0,0,0.8);
-      padding: 15px 30px;
-      border-radius: 10px;
-      border: 1px solid #ff6b6b;
-      display: none;
-      z-index: 2005;
     }
 
     .btn-skip {
@@ -316,17 +302,15 @@
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- 2. OVERLAY VIDEO OPENING ANGKATAN IX -->
+  <!-- 2. OVERLAY VIDEO OPENING (MENDUKUNG FORMAT WEBM DENGAN OPSI FALLBACK) -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
-      <!-- Pemanggilan Relatif/Lokal Samping File index.html -->
+      <!-- Menerima file format .webm -->
+      <source src="video_1.webm" type="video/webm">
+      <!-- Menerima file format .mp4 sebagai cadangan -->
       <source src="video_1.mp4" type="video/mp4">
-      <source src="video%201.mp4" type="video/mp4">
+      Browser kamu tidak mendukung pemutaran video ini.
     </video>
-    
-    <div class="video-error-msg" id="videoErrorMsg">
-      ⚠️ File video tidak dapat dimuat.<br>Beralih ke panggung utama...
-    </div>
 
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
@@ -377,32 +361,14 @@
     const introOverlay = document.getElementById('introOverlay');
     const introVideo = document.getElementById('introVideo');
     const participantCard = document.getElementById('participantCard');
-    const videoErrorMsg = document.getElementById('videoErrorMsg');
 
     function startEvent() {
       startScreen.classList.add('fade-out');
       
       introVideo.currentTime = 0;
-      const playPromise = introVideo.play();
-
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.warn("Autoplay gagal atau video bermasalah:", error);
-          handleVideoError();
-        });
-      }
-    }
-
-    // Penanganan Masalah Video Otomatis
-    introVideo.addEventListener('error', function() {
-      handleVideoError();
-    });
-
-    function handleVideoError() {
-      videoErrorMsg.style.display = 'block';
-      setTimeout(() => {
-        finishIntro();
-      }, 2500);
+      introVideo.play().catch(function(error) {
+        console.log("Autoplay ditolak atau video gagal diputar:", error);
+      });
     }
 
     introVideo.addEventListener('ended', function() {
@@ -413,20 +379,19 @@
       introOverlay.classList.add('hidden');
       setTimeout(() => {
         introVideo.pause();
-      }, 1000);
+      }, 1200);
 
       participantCard.classList.add('show');
     }
 
     function replayIntro() {
-      videoErrorMsg.style.display = 'none';
       participantCard.classList.remove('show');
       introOverlay.classList.remove('hidden');
       introVideo.currentTime = 0;
-      introVideo.play().catch(handleVideoError);
+      introVideo.play();
     }
 
-    // Data Peserta Tasyakuran
+    // Data Peserta Contoh
     const participants = [
       { 
         liqo: "AL-ALAQ 9.PB4",
@@ -473,7 +438,6 @@
       updateDisplay();
     }
 
-    // Set Data Awal
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
