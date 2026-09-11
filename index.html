@@ -29,7 +29,7 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR UTAMA AWAL (PERIZINAN AUTOPLAY) */
+    /* 1. LAYAR UTAMA AWAL (IZIN AUTOPLAY BROWSER) */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
@@ -136,7 +136,7 @@
       align-items: center;
     }
 
-    /* KARTU DENGAN TRANSISI HALUS & ELEGAN */
+    /* KARTU NAMA PESERTA DENGAN TRANSISI HALUS */
     .display-card {
       position: relative;
       z-index: 10;
@@ -149,7 +149,6 @@
       border-radius: 28px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
       
-      /* Animasi Halus (Smooth) */
       opacity: 0;
       transform: translateY(35px) scale(0.95);
       transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -245,13 +244,13 @@
 </head>
 <body>
 
-  <!-- TOMBOL AWAL PERIZINAN MEDIA -->
+  <!-- LAYAR MULAI -->
   <div class="start-screen" id="startScreen">
     <h1>TASYAKURAN DIROSA IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 MULAI OPENING CEREMONY</button>
   </div>
 
-  <!-- OVERLAY PEMUTAR VIDEO OPENING -->
+  <!-- OVERLAY VIDEO OPENING (MENGGUNAKAN OPENING.MP4) -->
   <div class="intro-overlay" id="introOverlay">
     <video class="intro-video" id="introVideo" playsinline preload="auto">
       <source src="opening.mp4" type="video/mp4">
@@ -259,7 +258,7 @@
     <button class="btn-skip" onclick="finishIntro()">Lewati Opening ›</button>
   </div>
 
-  <!-- DISPLAY UTAMA PANGGUNG -->
+  <!-- PANGGUNG DISPLAY UTAMA -->
   <div class="stage-container">
     <div class="display-card" id="participantCard">
       <div class="glass-header"><h2>Tasyakuran Dirosa</h2></div>
@@ -273,7 +272,7 @@
       </div>
     </div>
 
-    <!-- TOMBOL KONTROL -->
+    <!-- KONTROL NAVIGASI -->
     <div class="controls-container">
       <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
       <button class="btn-control" onclick="replayIntro()">🎥 Putar Ulang Video Opening</button>
@@ -305,7 +304,7 @@
 
     introVideo.addEventListener('error', function(e) {
       console.error("Video error:", e);
-      alert("Video tidak dapat dimuat. Membuka langsung panggung utama.");
+      alert("File 'opening.mp4' tidak ditemukan atau gagal dimuat. Membuka panggung utama.");
       finishIntro();
     });
 
@@ -313,7 +312,6 @@
       introOverlay.classList.add('hidden');
       setTimeout(() => introVideo.pause(), 1200);
       
-      // Delay sedikit sebelum menampilkan kartu agar masa transisi sangat halus
       setTimeout(() => {
         participantCard.classList.add('show');
       }, 400);
@@ -339,22 +337,18 @@
     let currentIndex = 0;
     let isTransitioning = false;
 
-    // FUNGSI UPDATE PERGANTIAN DENGAN TRANSISI HALUS DAN MANTAP
     function updateDisplay() {
       if (isTransitioning) return;
       isTransitioning = true;
 
-      // 1. Redupkan / hilangkan kartu secara perlahan
       participantCard.classList.remove('show');
 
-      // 2. Tunggu 600ms (pas di tengah durasi animasi hilangnya kartu)
       setTimeout(() => {
         document.getElementById('liqoDisplay').innerText = participants[currentIndex].liqo;
         document.getElementById('mudarissahDisplay').innerText = participants[currentIndex].mudarissah;
         document.getElementById('pesertaDisplay').innerText = participants[currentIndex].peserta;
         document.getElementById('photoDisplay').src = participants[currentIndex].photo;
 
-        // 3. Munculkan kembali kartu secara perlahan dengan efek membal mulus
         participantCard.classList.add('show');
         
         setTimeout(() => {
@@ -373,7 +367,6 @@
       updateDisplay(); 
     }
 
-    // Inisialisasi awal
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
