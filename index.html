@@ -29,7 +29,7 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING UTAMA (TETAP ADA) */
+    /* 1. LAYAR OPENING UTAMA */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
@@ -89,7 +89,6 @@
       align-items: center;
     }
 
-    /* KARTU NAMA PESERTA DENGAN TRANSISI HALUS */
     .display-card {
       position: relative;
       z-index: 10;
@@ -197,10 +196,10 @@
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN (TETAP ADA) -->
+  <!-- LAYAR OPENING DEPAN -->
   <div class="start-screen" id="startScreen">
     <h1>TASYAKURAN DIROSA IX</h1>
-    <button class="btn-start-event" onclick="startEvent()">🎬 MASUK KE PANGGUNG</button>
+    <button class="btn-start-event" onclick="startEvent()">🎬 DIMULAI</button>
   </div>
 
   <!-- PANGGUNG DISPLAY UTAMA -->
@@ -230,20 +229,14 @@
     const participantCard = document.getElementById('participantCard');
 
     function startEvent() {
-      // Menghilangkan Layar Pembuka secara mulus
       startScreen.classList.add('fade-out');
-
-      // Memunculkan kartu panggung secara halus
       setTimeout(() => {
         participantCard.classList.add('show');
       }, 400);
     }
 
     function showOpening() {
-      // Sembunyikan kartu panggung
       participantCard.classList.remove('show');
-
-      // Tampilkan kembali layar pembuka depan
       setTimeout(() => {
         startScreen.classList.remove('fade-out');
       }, 400);
@@ -289,7 +282,6 @@
       updateDisplay(); 
     }
 
-    // Inisialisasi awal data peserta
     document.getElementById('liqoDisplay').innerText = participants[0].liqo;
     document.getElementById('mudarissahDisplay').innerText = participants[0].mudarissah;
     document.getElementById('pesertaDisplay').innerText = participants[0].peserta;
