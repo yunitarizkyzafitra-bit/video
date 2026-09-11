@@ -29,54 +29,53 @@
       background-color: #000;
     }
 
-    /* 1. LAYAR OPENING UTAMA DENGAN ORNAMEN & LAMPU LATAR ISLAMI MEGAH */
+    /* 1. LAYAR OPENING UTAMA: HIJAU EMERALD & ORNAMEN KEEMASAN */
     .start-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       z-index: 3000;
-      background: radial-gradient(circle at center, #0d3826 0%, #04140d 60%, #010805 100%);
+      background: linear-gradient(135deg, #022c1b 0%, #051810 50%, #010f08 100%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
       transition: opacity 1.2s ease, visibility 1.2s ease;
       overflow: hidden;
     }
 
-    /* Efek Cahaya Lampu Latar & Ornamen Geometris Islami Megah di Background Opening */
+    /* Ornamen Keemasan Berlapis & Pancaran Lampu Latar Megah */
     .start-screen::before {
       content: '';
       position: absolute;
-      width: 150vw;
-      height: 150vh;
+      width: 160vw;
+      height: 160vh;
       background: 
-        radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
-        linear-gradient(45deg, rgba(13, 56, 38, 0.4) 0%, transparent 50%),
-        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(212, 175, 55, 0.03) 40px, rgba(212, 175, 55, 0.03) 80px);
-      animation: ambientGlow 10s ease-in-out infinite alternate;
+        radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, rgba(5, 24, 16, 0) 65%),
+        repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 40px),
+        repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.04) 0px, rgba(212, 175, 55, 0.04) 2px, transparent 2px, transparent 40px);
+      animation: ambientGlow 12s ease-in-out infinite alternate;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* Aksen Kubah / Lengkungan Islami Abstrak di Background */
+    /* Aksen Bingkai Ornamen Geometris Islami Keemasan di Layar Pembuka */
     .start-screen::after {
       content: '';
       position: absolute;
-      top: -10%;
-      width: 600px;
-      height: 600px;
-      border: 2px dashed rgba(212, 175, 55, 0.2);
-      border-radius: 50%;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.1), inset 0 0 50px rgba(212, 175, 55, 0.1);
+      width: 85vw;
+      height: 85vh;
+      border: 3px solid rgba(212, 175, 55, 0.35);
+      border-radius: 30px;
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2), inset 0 0 40px rgba(212, 175, 55, 0.2);
       z-index: 1;
       pointer-events: none;
     }
 
     @keyframes ambientGlow {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.08); opacity: 1; }
+      0% { transform: scale(1); opacity: 0.85; }
+      100% { transform: scale(1.06); opacity: 1; }
     }
 
     .start-screen > * {
@@ -84,24 +83,31 @@
       z-index: 2;
     }
 
-    /* WADAH KARTU LOGO DIANGKAT LEBIH KE ATAS */
+    /* WADAH KARTU LOGO DENGAN ANIMASI BERDENYUT (PULSE) */
     .logo-card {
       background: rgba(255, 255, 255, 0.06);
       border: 2px solid var(--gold-main);
       border-radius: 24px;
-      padding: 18px 32px;
+      padding: 22px 38px;
       backdrop-filter: blur(12px);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.4);
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: -5px; /* Menaikan posisi logo secara visual */
+      margin-bottom: -5px;
+      animation: logoPulse 3s ease-in-out infinite;
       transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.6s ease;
     }
 
     .logo-card:hover {
       transform: scale(1.08);
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.7);
+    }
+
+    @keyframes logoPulse {
+      0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.3); }
+      50% { transform: scale(1.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 40px rgba(212, 175, 55, 0.7); }
+      100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.3); }
     }
 
     .logo-wahdah {
@@ -114,10 +120,16 @@
     .start-screen h1 {
       font-family: 'Cinzel', serif;
       color: var(--gold-light);
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       letter-spacing: 5px;
       text-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
       text-align: center;
+      animation: textGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+      100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8), 0 0 10px rgba(255, 255, 255, 0.5); }
     }
 
     .btn-start-event {
@@ -219,11 +231,10 @@
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
     }
 
-    /* TRANSISI FOTO TERSINKRON DENGAN KARTU UTAMA */
     .photo-container img {
       width: 100%; 
       height: 100%;
-      object-fit: contain; /* Presisi tanpa wajah terpotong dan otomatis mengecil pas di bingkai */
+      object-fit: contain;
       object-position: center;
       background-color: #06150e;
       transition: transform 0.8s ease, filter 0.8s ease;
@@ -274,13 +285,13 @@
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN DENGAN ORNAMEN ISLAMI & LAMPU LATAR MEGAH -->
+  <!-- LAYAR OPENING DEPAN: HIJAU EMERALD, ORNAMEN KEEMASAN, TEKS & LOGO BERANIMASI -->
   <div class="start-screen" id="startScreen">
     <div class="logo-card">
       <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD">
     </div>
     
-    <h1>TASYAKURAN DIROSA IX</h1>
+    <h1>TASYAKURAN DIROSA ANGKATAN IX</h1>
     <button class="btn-start-event" onclick="startEvent()">🎬 DIMULAI</button>
   </div>
 
@@ -415,7 +426,7 @@
       document.getElementById('photoDisplay').src = participants[currentIndex].photo;
     }
 
-    // TRANSISI SINKRON SEMPURNA: Foto ikut memudar dan berganti selaras bersamaan dengan teks
+    // TRANSISI SINKRON SEMPURNA: Foto & teks berganti mulus bersamaan
     function updateDisplay() {
       if (isTransitioning || participants.length === 0) return;
       isTransitioning = true;
