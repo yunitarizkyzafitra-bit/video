@@ -3,491 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buku Digital & Display Peserta Tasyakuran Dirosa Angkatan IX</title>
-  
+  <title>Buku Digital Peserta Tasyakuran Dirosa Angkatan IX Tahun 2026</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap">
-
   <style>
-    :root {
-      --gold-main: #D4AF37;
-      --gold-light: #F3E5AB;
-      --bg-dark-green: rgba(5, 18, 12, 0.94);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-    }
-
-    body, html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Montserrat', sans-serif;
-      background-color: #000;
-    }
-
-    /* 1. LAYAR OPENING UTAMA */
+    :root { --gold-main: #D4AF37; --gold-light: #F3E5AB; --bg-dark-green: rgba(4, 20, 13, 0.97); }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #000; }
+    
     .start-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 3000;
-      background: radial-gradient(circle at center, #07472c 0%, #032114 50%, #010c07 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 25px;
-      transition: opacity 1.2s ease, visibility 1.2s ease;
-      overflow: hidden;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3000;
+      background: radial-gradient(circle at center, #0a3d24 0%, #031a0e 50%, #010a05 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; text-align: center; padding: 20px;
+      transition: opacity 1s ease, visibility 1s ease;
     }
+    .start-screen h1 { font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 2.2rem; letter-spacing: 3px; text-shadow: 0 0 20px rgba(212,175,55,0.6); line-height: 1.4; }
+    .start-screen p { color: #cfd8dc; font-size: 1.1rem; letter-spacing: 1px; }
+    .btn-start { background: linear-gradient(135deg, #d4af37, #997413); border: 2px solid #fff; color: #041B12; padding: 16px 45px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 0 35px rgba(212,175,55,0.7); transition: transform 0.2s; }
+    .btn-start:hover { transform: scale(1.05); }
+    .start-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    .start-screen::before {
-      content: '';
-      position: absolute;
-      width: 180vw; height: 180vh;
-      background: 
-        radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(3, 33, 20, 0) 65%),
-        linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, transparent 50%, rgba(212, 175, 55, 0.08) 100%);
-      animation: ambientGlow 10s ease-in-out infinite alternate;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .start-screen::after {
-      content: '';
-      position: absolute;
-      width: 88vw; height: 86vh;
-      border: 3px solid rgba(212, 175, 55, 0.5);
-      border-radius: 35px;
-      box-shadow: 0 0 60px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.3);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    @keyframes ambientGlow {
-      0% { transform: scale(1); opacity: 0.8; }
-      100% { transform: scale(1.08); opacity: 1; }
-    }
-
-    .start-screen > * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .logo-card {
-      background: rgba(255, 255, 255, 0.07);
-      border: 2px solid var(--gold-main);
-      border-radius: 24px;
-      padding: 20px 36px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 35px rgba(212, 175, 55, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: -10px;
-      animation: logoPulse 3s ease-in-out infinite;
-    }
-
-    @keyframes logoPulse {
-      0% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4); }
-      50% { transform: scale(1.04); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 45px rgba(212, 175, 55, 0.7); }
-      100% { transform: scale(1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.4); }
-    }
-
-    .logo-wahdah {
-      width: 150px;
-      height: auto;
-      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.7));
-    }
-
-    .start-screen h1 {
-      font-family: 'Cinzel', serif;
-      color: var(--gold-light);
-      font-size: 2.6rem;
-      letter-spacing: 5px;
-      text-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
-      text-align: center;
-    }
-
-    .btn-start-event {
-      background: linear-gradient(135deg, #d4af37, #997413);
-      border: 2px solid #fff;
-      color: #041B12;
-      padding: 16px 42px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 35px rgba(212, 175, 55, 0.8);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .btn-start-event:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 50px rgba(212, 175, 55, 1);
-    }
-
-    .start-screen.fade-out {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    /* 2. PANGGUNG DISPLAY UTAMA */
-    .stage-container {
-      position: relative;
-      width: 100vw; height: 100vh;
-      background: radial-gradient(circle at center, #0a2e1d 0%, #03140c 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
+    .stage-container { position: relative; width: 100vw; height: 100vh; background: radial-gradient(circle at center, #0b3320 0%, #021209 100%); display: flex; justify-content: center; align-items: center; }
+    
+    /* Bingkai Kartu Digital Elegan */
     .display-card {
-      position: relative;
-      z-index: 10;
-      width: 75vw; max-width: 1050px; min-height: 500px;
-      padding: 35px 50px;
+      position: relative; z-index: 10; width: 80vw; max-width: 1050px; min-height: 520px; padding: 40px 55px;
       display: flex; flex-direction: column; justify-content: center; gap: 22px;
-      background: var(--bg-dark-green); 
-      backdrop-filter: blur(20px);
-      border: 3px solid var(--gold-main);
-      border-radius: 28px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.4);
-      
-      opacity: 0;
-      transform: translateY(40px) scale(0.92);
-      filter: blur(12px);
-      transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background: var(--bg-dark-green); border: 4px solid var(--gold-main); border-radius: 25px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 30px rgba(212,175,55,0.15);
+      opacity: 0; transform: translateY(30px) scale(0.95); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    .display-card.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
-    }
-
-    .glass-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 30px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(212, 175, 55, 0.6);
-      border-radius: 35px;
-    }
-
-    .glass-header h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.35rem;
-      letter-spacing: 3px;
-      color: var(--gold-light);
-      text-transform: uppercase;
-    }
-
-    .number-badge {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #041B12;
-      background: var(--gold-main);
-      padding: 4px 14px;
-      border-radius: 20px;
-    }
-
-    .card-body {
-      display: flex;
-      align-items: center;
-      gap: 45px;
-    }
-
-    .photo-container {
-      flex-shrink: 0;
-      width: 210px; height: 265px;
-      border-radius: 20px;
-      border: 3px solid var(--gold-main);
-      overflow: hidden;
-      background: #06150e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6), 0 8px 25px rgba(0,0,0,0.5);
-    }
-
-    .photo-container img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-    }
-
-    .photo-container img.fade-anim {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    .info-container {
-      flex-grow: 1;
-      display: flex; flex-direction: column; gap: 14px;
-      justify-content: center;
-    }
-
-    .info-box {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .info-box .label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--gold-main);
-      font-weight: 600;
-    }
-
-    .info-box .value-liqo { font-size: 1.25rem; font-weight: 600; color: #e0e0e0; }
-    .info-box .value-mudarissah { font-size: 1.3rem; font-weight: 600; color: var(--gold-light); }
-    .info-box .value-peserta {
-      font-family: 'Cinzel', serif;
-      font-size: 2.3rem; font-weight: 800; color: #ffffff;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
-      line-height: 1.2;
-    }
-
-    .controls-container {
-      position: absolute; bottom: 25px;
-      display: flex; gap: 12px;
-      align-items: center;
-    }
-
-    .btn-control {
-      background: rgba(12, 30, 22, 0.9);
-      border: 1.5px solid var(--gold-main);
-      color: #fff;
-      padding: 10px 22px;
-      font-size: 0.85rem; font-weight: 600;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-control:hover {
-      background: var(--gold-main);
-      color: #041B12;
-    }
-
-    .btn-auto {
-      background: linear-gradient(135deg, #d4af37, #997413);
-      color: #041B12;
-      font-weight: 700;
-    }
-
-    .counter-indicator {
-      color: var(--gold-light);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-left: 5px;
-    }
+    .display-card.show { opacity: 1; transform: translateY(0) scale(1); }
+    
+    .glass-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.4); border-radius: 30px; }
+    .glass-header h2 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 2px; }
+    .number-badge { font-size: 1.05rem; font-weight: 700; color: #041B12; background: var(--gold-main); padding: 5px 16px; border-radius: 20px; box-shadow: 0 0 10px rgba(212,175,55,0.5); }
+    
+    .card-body { display: flex; align-items: center; gap: 50px; }
+    .photo-box { width: 220px; height: 280px; border-radius: 16px; border: 3px solid var(--gold-main); overflow: hidden; background: #04140c; flex-shrink: 0; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+    .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .info-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .info-group .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gold-main); font-weight: 700; }
+    .info-group .val-nama { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700; color: #fff; line-height: 1.25; }
+    .info-group .val-sub { font-size: 1.25rem; font-weight: 600; color: var(--gold-light); }
+    
+    .controls { position: absolute; bottom: 20px; left: 55px; right: 55px; display: flex; justify-content: space-between; align-items: center; }
+    .nav-buttons { display: flex; gap: 12px; }
+    .btn-ctrl { background: rgba(10,35,22,0.95); border: 1px solid var(--gold-main); color: #fff; padding: 10px 22px; border-radius: 22px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+    .btn-ctrl:hover { background: var(--gold-main); color: #041B12; box-shadow: 0 0 15px rgba(212,175,55,0.6); }
+    .counter { color: var(--gold-light); font-weight: 700; font-size: 1rem; letter-spacing: 1px; }
   </style>
 </head>
 <body>
 
-  <!-- LAYAR OPENING DEPAN -->
+  <!-- Cover / Layar Utama -->
   <div class="start-screen" id="startScreen">
-    <div class="logo-card">
-      <img class="logo-wahdah" src="./logo MWD.png" alt="Logo MWD" onerror="this.src='https://via.placeholder.com/150x80?text=WAHDAH'">
-    </div>
-    <h1>TASYAKURAN DIROSA ANGKATAN IX</h1>
-    <button class="btn-start-event" onclick="startEvent()">🎬 MULAI BUKU DIGITAL</button>
+    <h1>BUKU DIGITAL PESERTA TASYAKURAN DIROSA<br>ANGKATAN IX TAHUN 2026</h1>
+    <p>Menampilkan 549 Peserta Berurutan Lengkap dengan Galeri Foto</p>
+    <button class="btn-start" onclick="startApp()">▶ BUKA BUKU DIGITAL</button>
   </div>
 
-  <!-- PANGGUNG DISPLAY UTAMA -->
+  <!-- Panggung Utama Display Kartu -->
   <div class="stage-container">
-    <div class="display-card" id="participantCard">
+    <div class="display-card" id="mainCard">
       <div class="glass-header">
-        <h2>Tasyakuran Dirosa</h2>
-        <span class="number-badge" id="noUrutBadge">No. 1</span>
+        <h2>Tasyakuran Dirosa Angkatan IX</h2>
+        <span class="number-badge" id="badgeNo">No. 1 dari 549</span>
       </div>
+      
       <div class="card-body">
-        <div class="photo-container">
-          <img id="photoDisplay" src="https://via.placeholder.com/210x265" alt="Foto Peserta">
+        <div class="photo-box">
+          <img id="pesertaFoto" src="https://via.placeholder.com/220x280?text=Memuat+Foto..." alt="Foto Peserta">
         </div>
-        <div class="info-container">
-          <div class="info-box"><div class="label">Liqo</div><div class="value-liqo" id="liqoDisplay">Al-Alaq 9.MT1 - Ustadzah Zulaiha</div></div>
-          <div class="info-box"><div class="label">Mudarissah</div><div class="value-mudarissah" id="mudarissahDisplay">Hj. Zalzulmida A. Djanggola, S.H., C.N.</div></div>
-          <div class="info-box"><div class="label">Nama Peserta</div><div class="value-peserta" id="pesertaDisplay">YUNITA RIZKY ZAFITRA</div></div>
+        <div style="flex-grow: 1;">
+          <div class="info-group">
+            <div class="label">Nama Peserta</div>
+            <div class="val-nama" id="valNama">Memuat Nama...</div>
+          </div>
+          <div class="info-group">
+            <div class="label">Kelompok Liqo / Halaqah</div>
+            <div class="val-sub" id="valLiqo">Memuat Liqo...</div>
+          </div>
+          <div class="info-group">
+            <div class="label">Mudarissah / Darisah</div>
+            <div class="val-sub" id="valMudarissah" style="color: #e0e0e0;">Memuat Mudarissah...</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- KONTROL NAVIGASI -->
-    <div class="controls-container">
-      <button class="btn-control" onclick="prevParticipant()">‹ Sebelum</button>
-      <button class="btn-control" onclick="showOpening()">🏠 Opening</button>
-      <button class="btn-control" onclick="nextParticipant()">Selanjutnya ›</button>
-      <button class="btn-control btn-auto" id="btnAutoToggle" onclick="toggleAutoPlay()">▶ Play Otomatis</button>
-      <span class="counter-indicator" id="counterIndicator">1 / 1</span>
+      <div class="controls">
+        <div class="nav-buttons">
+          <button class="btn-ctrl" onclick="prevData()">‹ Sebelumnya</button>
+          <button class="btn-ctrl" onclick="resetApp()">🏠 Cover Utama</button>
+          <button class="btn-ctrl" onclick="nextData()">Berikutnya ›</button>
+        </div>
+        <span class="counter" id="counterText">0 / 549</span>
+      </div>
     </div>
   </div>
 
   <script>
-    // Data Peserta Valid Berdasarkan Master Data Excel Tasyakuran 2026
-    const participants = [
-      {
-        no: 1,
-        liqo: "Al-Alaq 9.MT13",
-        mudarissah: "Hj. Zalzulmida A. Djanggola, S.H., C.N.",
-        peserta: "Hj. Zalzulmida A. Djanggola, S.H., C.N.",
-        photo: "https://via.placeholder.com/210x265?text=Peserta+1"
-      },
-      {
-        no: 2,
-        liqo: "Al-Alaq 9.PB7 (KEMENAG)",
-        mudarissah: "Zultin, S.H.I.",
-        peserta: "Ana Rolita",
-        photo: "https://via.placeholder.com/210x265?text=Ana+Rolita"
-      },
-      {
-        no: 3,
-        liqo: "Al-Alaq 9.PB7 (KEMENAG)",
-        mudarissah: "Zultin, S.H.I.",
-        peserta: "Millah",
-        photo: "https://via.placeholder.com/210x265?text=Millah"
-      },
-      {
-        no: 4,
-        liqo: "Al-Alaq 9.MT2",
-        mudarissah: "Ustadzah Zulaiha",
-        peserta: "Rismawati",
-        photo: "https://via.placeholder.com/210x265?text=Rismawati"
-      }
-    ];
+    // Ganti URL di bawah dengan URL Web App dari Google Apps Script Anda
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz02BjC-rApQ5_bMOgxDRHyeAd35e7bboIUUKe5QuLQaRqZHT_VcWydClBCNPGH272j/exec";
+    
+    let dataPeserta = [];
+    let index = 0;
 
-    let currentIndex = 0;
-    let isTransitioning = false;
-    let autoPlayTimer = null;
-    let isAutoPlaying = false;
-
-    const startScreen = document.getElementById('startScreen');
-    const participantCard = document.getElementById('participantCard');
-
-    function startEvent() {
-      startScreen.classList.add('fade-out');
-      setTimeout(() => {
-        participantCard.classList.add('show');
-      }, 1000);
-      updateCardContent(false);
-      updateCounter();
-    }
-
-    function showOpening() {
-      stopAutoPlay();
-      participantCard.classList.remove('show');
-      setTimeout(() => {
-        startScreen.classList.remove('fade-out');
-      }, 500);
-    }
-
-    function updateCardContent(withPhotoFade = true) {
-      if (participants.length === 0) return;
-      
-      const currentData = participants[currentIndex];
-      
-      document.getElementById('noUrutBadge.innerText = `No. ${currentData.no}`;
-      document.getElementById('liqoDisplay').innerText = currentData.liqo;
-      document.getElementById('mudarissahDisplay').innerText = currentData.mudarissah;
-      document.getElementById('pesertaDisplay').innerText = currentData.peserta;
-
-      const photoEl = document.getElementById('photoDisplay');
-      
-      if (withPhotoFade) {
-        photoEl.classList.add('fade-anim');
-        setTimeout(() => {
-          photoEl.src = currentData.photo;
-          photoEl.onload = () => {
-            photoEl.classList.remove('fade-anim');
-          };
-        }, 300);
-      } else {
-        photoEl.src = currentData.photo;
+    async function loadData() {
+      try {
+        let response = await fetch(SCRIPT_URL);
+        dataPeserta = await response.json();
+        updateDisplay();
+      } catch (err) {
+        // Data Dummy / Contoh jika offline
+        dataPeserta = [
+          { no: 1, nama: "Zultin, S.H.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "" }
+        ];
+        updateDisplay();
       }
     }
 
-    function updateCounter() {
-      const counterEl = document.getElementById('counterIndicator');
-      counterEl.innerText = `${currentIndex + 1} / ${participants.length}`;
-      document.getElementById('noUrutBadge').innerText = `No. ${participants[currentIndex].no}`;
+    function startApp() {
+      document.getElementById('startScreen').classList.add('fade-out');
+      setTimeout(() => { document.getElementById('mainCard').classList.add('show'); }, 400);
+      loadData();
+    }
+
+    function resetApp() {
+      document.getElementById('mainCard').classList.is('show') && document.getElementById('mainCard').classList.remove('show');
+      setTimeout(() => { document.getElementById('startScreen').classList.remove('fade-out'); }, 400);
     }
 
     function updateDisplay() {
-      if (isTransitioning || participants.length === 0) return;
-      isTransitioning = true;
-
-      participantCard.classList.remove('show');
-
-      setTimeout(() => {
-        updateCardContent(true);
-        updateCounter();
-        participantCard.classList.add('show');
-
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 600);
-      }, 600);
+      if (dataPeserta.length === 0) return;
+      const d = dataPeserta[index];
+      document.getElementById('badgeNo').innerText = "No. " + d.no + " dari 549";
+      document.getElementById('valNama').innerText = d.nama;
+      document.getElementById('valLiqo').innerText = d.liqo;
+      document.getElementById('valMudarissah').innerText = d.mudarissah;
+      document.getElementById('pesertaFoto').src = d.foto || "https://via.placeholder.com/220x280?text=Foto+Tidak+Tersedia";
+      document.getElementById('counterText').innerText = `${index + 1} / ${dataPeserta.length}`;
     }
 
-    function nextParticipant() { 
-      if (participants.length === 0) return;
-      currentIndex = (currentIndex + 1) % participants.length; 
-      updateDisplay(); 
+    function nextData() {
+      if (dataPeserta.length === 0) return;
+      index = (index + 1) % dataPeserta.length;
+      updateDisplay();
     }
 
-    function prevParticipant() { 
-      if (participants.length === 0) return;
-      currentIndex = (currentIndex - 1 + participants.length) % participants.length; 
-      updateDisplay(); 
+    function prevData() {
+      if (dataPeserta.length === 0) return;
+      index = (index - 1 + dataPeserta.length) % dataPeserta.length;
+      updateDisplay();
     }
 
-    function toggleAutoPlay() {
-      const btn = document.getElementById('btnAutoToggle');
-      if (!isAutoPlaying) {
-        isAutoPlaying = true;
-        btn.innerText = "⏸ Jeda Otomatis";
-        btn.style.background = "#b8860b";
-        autoPlayTimer = setInterval(() => {
-          nextParticipant();
-        }, 5000);
-      } else {
-        stopAutoPlay();
-      }
-    }
-
-    function stopAutoPlay() {
-      isAutoPlaying = false;
-      const btn = document.getElementById('btnAutoToggle');
-      if (btn) {
-        btn.innerText = "▶ Play Otomatis";
-        btn.style.background = "linear-gradient(135deg, #d4af37, #997413)";
-      }
-      if (autoPlayTimer) {
-        clearInterval(autoPlayTimer);
-        autoPlayTimer = null;
-      }
-    }
-
-    document.addEventListener('keydown', event => {
-      if (event.key === 'ArrowRight') {
-        nextParticipant();
-      } else if (event.key === 'ArrowLeft') {
-        prevParticipant();
-      }
+    // Pintasan Keyboard (Panah Kanan & Kiri)
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') nextData();
+      if (e.key === 'ArrowLeft') prevData();
     });
   </script>
 </body>
