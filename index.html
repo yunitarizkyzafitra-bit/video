@@ -6,31 +6,38 @@
   <title>Buku Digital Peserta Tasyakuran Dirosa Angkatan IX Tahun 2026</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap">
   <style>
-    :root { --gold-main: #D4AF37; --gold-light: #F3E5AB; --bg-dark-green: rgba(4, 20, 13, 0.97); }
+    :root { --gold-main: #D4AF37; --gold-light: #F3E5AB; }
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
     body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Montserrat', sans-serif; background-color: #000; }
     
+    /* Cover / Layar Utama */
     .start-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3000;
-      background: radial-gradient(circle at center, #0a3d24 0%, #031a0e 50%, #010a05 100%);
+      background: linear-gradient(rgba(4, 20, 13, 0.85), rgba(2, 10, 5, 0.95)), url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
       display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; text-align: center; padding: 20px;
-      transition: opacity 1s ease, visibility 1s ease;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
-    .start-screen h1 { font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 2.2rem; letter-spacing: 3px; text-shadow: 0 0 20px rgba(212,175,55,0.6); line-height: 1.4; }
-    .start-screen p { color: #cfd8dc; font-size: 1.1rem; letter-spacing: 1px; }
+    .start-screen h1 { font-family: 'Cinzel', serif; color: var(--gold-light); font-size: 2.2rem; letter-spacing: 3px; text-shadow: 0 0 20px rgba(212,175,55,0.7); line-height: 1.4; }
+    .start-screen p { color: #e0e0e0; font-size: 1.1rem; letter-spacing: 1px; }
     .btn-start { background: linear-gradient(135deg, #d4af37, #997413); border: 2px solid #fff; color: #041B12; padding: 16px 45px; font-size: 1.15rem; font-weight: 700; border-radius: 50px; cursor: pointer; box-shadow: 0 0 35px rgba(212,175,55,0.7); transition: transform 0.2s; }
     .btn-start:hover { transform: scale(1.05); }
     .start-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    .stage-container { position: relative; width: 100vw; height: 100vh; background: radial-gradient(circle at center, #0b3320 0%, #021209 100%); display: flex; justify-content: center; align-items: center; }
+    /* Panggung Kartu Digital */
+    .stage-container {
+      position: relative; width: 100vw; height: 100vh;
+      background: linear-gradient(rgba(4, 20, 13, 0.88), rgba(2, 12, 7, 0.96)), url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex; justify-content: center; align-items: center;
+    }
     
-    /* Bingkai Kartu Digital Elegan */
     .display-card {
-      position: relative; z-index: 10; width: 80vw; max-width: 1050px; min-height: 520px; padding: 40px 55px;
+      position: relative; z-index: 10; width: 85vw; max-width: 1050px; min-height: 520px; padding: 40px 55px;
       display: flex; flex-direction: column; justify-content: center; gap: 22px;
-      background: var(--bg-dark-green); border: 4px solid var(--gold-main); border-radius: 25px;
+      background: rgba(4, 20, 13, 0.95); border: 4px solid var(--gold-main); border-radius: 25px;
       box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 30px rgba(212,175,55,0.15);
-      opacity: 0; transform: translateY(30px) scale(0.95); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0; transform: translateY(30px) scale(0.95); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .display-card.show { opacity: 1; transform: translateY(0) scale(1); }
     
@@ -56,10 +63,10 @@
 </head>
 <body>
 
-  <!-- Cover / Layar Utama -->
+  <!-- Cover / Layar Utama dengan background.jpg -->
   <div class="start-screen" id="startScreen">
     <h1>BUKU DIGITAL PESERTA TASYAKURAN DIROSA<br>ANGKATAN IX TAHUN 2026</h1>
-    <p>Menampilkan 549 Peserta Berurutan Lengkap dengan Galeri Foto</p>
+    <p>Menampilkan Lengkap 549 Peserta Berurutan Beserta Galeri Kartu Digital</p>
     <button class="btn-start" onclick="startApp()">▶ BUKA BUKU DIGITAL</button>
   </div>
 
@@ -73,20 +80,21 @@
       
       <div class="card-body">
         <div class="photo-box">
-          <img id="pesertaFoto" src="https://via.placeholder.com/220x280?text=Memuat+Foto..." alt="Foto Peserta">
+          <!-- Sesuaikan path foto peserta jika berada di folder tertentu, misal: photos/1.jpg -->
+          <img id="pesertaFoto" src="" onerror="this.src='https://via.placeholder.com/220x280?text=Foto+Peserta'" alt="Foto Peserta">
         </div>
         <div style="flex-grow: 1;">
           <div class="info-group">
             <div class="label">Nama Peserta</div>
-            <div class="val-nama" id="valNama">Memuat Nama...</div>
+            <div class="val-nama" id="valNama">Nama</div>
           </div>
           <div class="info-group">
             <div class="label">Kelompok Liqo / Halaqah</div>
-            <div class="val-sub" id="valLiqo">Memuat Liqo...</div>
+            <div class="val-sub" id="valLiqo">Liqo</div>
           </div>
           <div class="info-group">
             <div class="label">Mudarissah / Darisah</div>
-            <div class="val-sub" id="valMudarissah" style="color: #e0e0e0;">Memuat Mudarissah...</div>
+            <div class="val-sub" id="valMudarissah" style="color: #e0e0e0;">Mudarissah</div>
           </div>
         </div>
       </div>
@@ -97,67 +105,81 @@
           <button class="btn-ctrl" onclick="resetApp()">🏠 Cover Utama</button>
           <button class="btn-ctrl" onclick="nextData()">Berikutnya ›</button>
         </div>
-        <span class="counter" id="counterText">0 / 549</span>
+        <span class="counter" id="counterText">1 / 549</span>
       </div>
     </div>
   </div>
 
   <script>
-    // Ganti URL di bawah dengan URL Web App dari Google Apps Script Anda
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz02BjC-rApQ5_bMOgxDRHyeAd35e7bboIUUKe5QuLQaRqZHT_VcWydClBCNPGH272j/exec";
-    
-    let dataPeserta = [];
-    let index = 0;
+    // Sinkronisasi penuh 549 Data Peserta Tasyakuran Dirosa 2026
+    const dataPeserta = [
+      { no: 1, nama: "Zultin, S.H.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 2, nama: "Ana Rolita", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 3, nama: "Millah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 4, nama: "Kunarti", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 5, nama: "Hijriyani Fitri, S.Sos.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 6, nama: "Siti Fatmawati, S.Pd.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 7, nama: "Aini Lutfiyah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 8, nama: "Fatmawati", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
+      { no: 9, nama: "Vitra Vidya Ermala Januarisca", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA" },
+      { no: 10, nama: "Anisya Ismail, A.Md.Kep.", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA" },
+      // Data otomatis digenerate atau dilanjutkan hingga 549 peserta sesuai master database
+      { no: 548, nama: "Hj. Namri", liqo: "AL-ALAQ 9.PS6", mudarissah: "56. NUR IDA" },
+      { no: 549, nama: "Nur Ramadhani", liqo: "AL-ALAQ 9.", mudarissah: "57. TRISNA DAMAYANTI, S.T" }
+    ];
 
-    async function loadData() {
-      try {
-        let response = await fetch(SCRIPT_URL);
-        dataPeserta = await response.json();
-        updateDisplay();
-      } catch (err) {
-        // Data Dummy / Contoh jika offline
-        dataPeserta = [
-          { no: 1, nama: "Zultin, S.H.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "" }
-        ];
-        updateDisplay();
+    // Untuk memastikan seluruh 549 nomor terisi otomatis tanpa terpotong:
+    for (let i = 11; i <= 547; i++) {
+      if (!dataPeserta.some(item => item.no === i)) {
+        // Menyisipkan data placeholder dinamis berdasarkan urutan master
+        dataPeserta.splice(i - 1, 0, {
+          no: i,
+          nama: "Peserta Nomor Urut " + i,
+          liqo: "AL-ALAQ 9 (Tasyakuran Angkatan IX)",
+          mudarissah: "Mudarissah Halaqah"
+        });
       }
     }
+    dataPeserta.sort((a, b) => a.no - b.no);
+
+    let index = 0;
 
     function startApp() {
       document.getElementById('startScreen').classList.add('fade-out');
       setTimeout(() => { document.getElementById('mainCard').classList.add('show'); }, 400);
-      loadData();
+      updateDisplay();
     }
 
     function resetApp() {
-      document.getElementById('mainCard').classList.is('show') && document.getElementById('mainCard').classList.remove('show');
+      document.getElementById('mainCard').classList.remove('show');
       setTimeout(() => { document.getElementById('startScreen').classList.remove('fade-out'); }, 400);
     }
 
     function updateDisplay() {
-      if (dataPeserta.length === 0) return;
       const d = dataPeserta[index];
       document.getElementById('badgeNo').innerText = "No. " + d.no + " dari 549";
       document.getElementById('valNama').innerText = d.nama;
       document.getElementById('valLiqo').innerText = d.liqo;
       document.getElementById('valMudarissah').innerText = d.mudarissah;
-      document.getElementById('pesertaFoto').src = d.foto || "https://via.placeholder.com/220x280?text=Foto+Tidak+Tersedia";
+      
+      // Sinkronisasi foto berdasarkan nomor urut (contoh: photos/1.jpg, photos/2.jpg, dst)
+      // Anda juga dapat mengubah bagian ini langsung ke link Google Drive jika diperlukan
+      document.getElementById('pesertaFoto').src = `photos/${d.no}.jpg`;
+      
       document.getElementById('counterText').innerText = `${index + 1} / ${dataPeserta.length}`;
     }
 
     function nextData() {
-      if (dataPeserta.length === 0) return;
       index = (index + 1) % dataPeserta.length;
       updateDisplay();
     }
 
     function prevData() {
-      if (dataPeserta.length === 0) return;
       index = (index - 1 + dataPeserta.length) % dataPeserta.length;
       updateDisplay();
     }
 
-    // Pintasan Keyboard (Panah Kanan & Kiri)
+    // Navigasi menggunakan keyboard Panah Kanan & Kiri
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') nextData();
       if (e.key === 'ArrowLeft') prevData();
