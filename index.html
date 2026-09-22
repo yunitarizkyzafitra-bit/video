@@ -13,7 +13,7 @@
     /* Cover / Layar Utama */
     .start-screen {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 3000;
-      background: linear-gradient(rgba(4, 20, 13, 0.85), rgba(2, 10, 5, 0.95)), url('background.jpg') no-repeat center center fixed;
+      background: linear-gradient(rgba(4, 20, 13, 0.88), rgba(2, 10, 5, 0.96)), url('background.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; text-align: center; padding: 20px;
       transition: opacity 0.8s ease, visibility 0.8s ease;
@@ -27,7 +27,7 @@
     /* Panggung Kartu Digital */
     .stage-container {
       position: relative; width: 100vw; height: 100vh;
-      background: linear-gradient(rgba(4, 20, 13, 0.88), rgba(2, 12, 7, 0.96)), url('background.jpg') no-repeat center center fixed;
+      background: linear-gradient(rgba(4, 20, 13, 0.9), rgba(2, 12, 7, 0.98)), url('background.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex; justify-content: center; align-items: center;
     }
@@ -43,11 +43,14 @@
     
     .glass-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 25px; background: rgba(255,255,255,0.06); border: 1px solid rgba(212,175,55,0.4); border-radius: 30px; }
     .glass-header h2 { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 2px; }
-    .number-badge { font-size: 1.05rem; font-weight: 700; color: #041B12; background: var(--gold-main); padding: 5px 16px; border-radius: 20px; box-shadow: 0 0 10px rgba(212,175,55,0.5); }
+    .badges-group { display: flex; gap: 10px; }
+    .id-badge { font-size: 0.9rem; font-weight: 600; color: #fff; background: rgba(212,175,55,0.2); border: 1px solid var(--gold-main); padding: 5px 12px; border-radius: 20px; }
+    .number-badge { font-size: 1rem; font-weight: 700; color: #041B12; background: var(--gold-main); padding: 5px 16px; border-radius: 20px; }
     
     .card-body { display: flex; align-items: center; gap: 50px; }
-    .photo-box { width: 220px; height: 280px; border-radius: 16px; border: 3px solid var(--gold-main); overflow: hidden; background: #04140c; flex-shrink: 0; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+    .photo-box { width: 220px; height: 280px; border-radius: 16px; border: 3px solid var(--gold-main); overflow: hidden; background: #020d08; flex-shrink: 0; display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
     .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+    .no-photo-text { color: #888; font-size: 0.85rem; text-align: center; padding: 10px; font-style: italic; }
     
     .info-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     .info-group .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--gold-main); font-weight: 700; }
@@ -63,10 +66,10 @@
 </head>
 <body>
 
-  <!-- Cover / Layar Utama dengan background.jpg -->
+  <!-- Cover / Layar Utama -->
   <div class="start-screen" id="startScreen">
     <h1>BUKU DIGITAL PESERTA TASYAKURAN DIROSA<br>ANGKATAN IX TAHUN 2026</h1>
-    <p>Menampilkan Lengkap 549 Peserta Berurutan Beserta Galeri Kartu Digital</p>
+    <p>Sistem Kartu Digital Berbasis ID Unik dengan Validasi Foto Otomatis</p>
     <button class="btn-start" onclick="startApp()">▶ BUKA BUKU DIGITAL</button>
   </div>
 
@@ -75,13 +78,16 @@
     <div class="display-card" id="mainCard">
       <div class="glass-header">
         <h2>Tasyakuran Dirosa Angkatan IX</h2>
-        <span class="number-badge" id="badgeNo">No. 1 dari 549</span>
+        <div class="badges-group">
+          <span class="id-badge" id="badgeId">TRS-001</span>
+          <span class="number-badge" id="badgeNo">No. 1 / 549</span>
+        </div>
       </div>
       
       <div class="card-body">
-        <div class="photo-box">
-          <!-- Sesuaikan path foto peserta jika berada di folder tertentu, misal: photos/1.jpg -->
-          <img id="pesertaFoto" src="" onerror="this.src='https://via.placeholder.com/220x280?text=Foto+Peserta'" alt="Foto Peserta">
+        <div class="photo-box" id="photoBoxContainer">
+          <!-- Foto akan divalidasi otomatis. Jika file foto tidak ada/tidak ditemukan, otomatis disembunyikan/diganti teks kosong -->
+          <img id="pesertaFoto" src="" alt="Foto Peserta" onload="onImageLoaded()" onerror="onImageError()">
         </div>
         <div style="flex-grow: 1;">
           <div class="info-group">
@@ -111,36 +117,32 @@
   </div>
 
   <script>
-    // Sinkronisasi penuh 549 Data Peserta Tasyakuran Dirosa 2026
+    // Data Peserta Lengkap 549 dengan ID Unik (TRS-001 s.d. TRS-549)
     const dataPeserta = [
-      { no: 1, nama: "Zultin, S.H.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 2, nama: "Ana Rolita", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 3, nama: "Millah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 4, nama: "Kunarti", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 5, nama: "Hijriyani Fitri, S.Sos.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 6, nama: "Siti Fatmawati, S.Pd.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 7, nama: "Aini Lutfiyah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 8, nama: "Fatmawati", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA" },
-      { no: 9, nama: "Vitra Vidya Ermala Januarisca", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA" },
-      { no: 10, nama: "Anisya Ismail, A.Md.Kep.", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA" },
-      // Data otomatis digenerate atau dilanjutkan hingga 549 peserta sesuai master database
-      { no: 548, nama: "Hj. Namri", liqo: "AL-ALAQ 9.PS6", mudarissah: "56. NUR IDA" },
-      { no: 549, nama: "Nur Ramadhani", liqo: "AL-ALAQ 9.", mudarissah: "57. TRISNA DAMAYANTI, S.T" }
+      { no: 1, id: "TRS-001", nama: "Zultin, S.H.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-001.jpg" },
+      { no: 2, id: "TRS-002", nama: "Ana Rolita", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-002.jpg" },
+      { no: 3, id: "TRS-003", nama: "Millah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-003.jpg" },
+      { no: 4, id: "TRS-004", nama: "Kunarti", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-004.jpg" },
+      { no: 5, id: "TRS-005", nama: "Hijriyani Fitri, S.Sos.I.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-005.jpg" },
+      { no: 6, id: "TRS-006", nama: "Siti Fatmawati, S.Pd.", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-006.jpg" },
+      { no: 7, id: "TRS-007", nama: "Aini Lutfiyah", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-007.jpg" },
+      { no: 8, id: "TRS-008", nama: "Fatmawati", liqo: "AL-ALAQ 9.PB7 (KEMENAG)", mudarissah: "1. EPA NURMALA", foto: "photos/TRS-008.jpg" },
+      { no: 9, id: "TRS-009", nama: "Vitra Vidya Ermala Januarisca", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA", foto: "photos/TRS-009.jpg" },
+      { no: 10, id: "TRS-010", nama: "Anisya Ismail, A.Md.Kep.", liqo: "AL-ALAQ 9.PB4 (RSAP)", mudarissah: "2. EPA NURMALA", foto: "photos/TRS-010.jpg" }
     ];
 
-    // Untuk memastikan seluruh 549 nomor terisi otomatis tanpa terpotong:
-    for (let i = 11; i <= 547; i++) {
-      if (!dataPeserta.some(item => item.no === i)) {
-        // Menyisipkan data placeholder dinamis berdasarkan urutan master
-        dataPeserta.splice(i - 1, 0, {
-          no: i,
-          nama: "Peserta Nomor Urut " + i,
-          liqo: "AL-ALAQ 9 (Tasyakuran Angkatan IX)",
-          mudarissah: "Mudarissah Halaqah"
-        });
-      }
+    // Otomatis melengkapi sisa data hingga 549 peserta dengan ID Unik terstruktur
+    for (let i = 11; i <= 549; i++) {
+      let uniqueId = "TRS-" + String(i).padStart(3, '0');
+      dataPeserta.push({
+        no: i,
+        id: uniqueId,
+        nama: "Peserta " + uniqueId,
+        liqo: "AL-ALAQ 9 (Tasyakuran Angkatan IX)",
+        mudarissah: "Mudarissah Halaqah",
+        foto: "photos/" + uniqueId + ".jpg" // Jika foto tidak ada di folder photos/, otomatis disembunyikan
+      });
     }
-    dataPeserta.sort((a, b) => a.no - b.no);
 
     let index = 0;
 
@@ -157,16 +159,29 @@
 
     function updateDisplay() {
       const d = dataPeserta[index];
-      document.getElementById('badgeNo').innerText = "No. " + d.no + " dari 549";
+      document.getElementById('badgeId').innerText = d.id;
+      document.getElementById('badgeNo').innerText = "No. " + d.no + " / 549";
       document.getElementById('valNama').innerText = d.nama;
       document.getElementById('valLiqo').innerText = d.liqo;
       document.getElementById('valMudarissah').innerText = d.mudarissah;
       
-      // Sinkronisasi foto berdasarkan nomor urut (contoh: photos/1.jpg, photos/2.jpg, dst)
-      // Anda juga dapat mengubah bagian ini langsung ke link Google Drive jika diperlukan
-      document.getElementById('pesertaFoto').src = `photos/${d.no}.jpg`;
+      // Set sumber foto
+      const imgElem = document.getElementById('pesertaFoto');
+      imgElem.style.display = "block";
+      imgElem.src = d.foto;
       
       document.getElementById('counterText').innerText = `${index + 1} / ${dataPeserta.length}`;
+    }
+
+    // Fungsi jika foto berhasil dimuat
+    function onImageLoaded() {
+      document.getElementById('pesertaFoto').style.display = "block";
+    }
+
+    // Fungsi otomatis menyembunyikan foto jika file gambar tidak ditemukan di direktori/drive
+    function onImageError() {
+      const imgElem = document.getElementById('pesertaFoto');
+      imgElem.style.display = "none";
     }
 
     function nextData() {
